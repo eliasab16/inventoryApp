@@ -7,18 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4221549A273791920083D633 /* Inventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42215499273791920083D633 /* Inventory.swift */; };
+		4221549D273792C20083D633 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221549C273792C20083D633 /* ViewModel.swift */; };
+		4221549F2737AB370083D633 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4221549E2737AB370083D633 /* GoogleService-Info.plist */; };
 		4295D61727375A550014289D /* inventoryAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4295D61627375A550014289D /* inventoryAppApp.swift */; };
 		4295D61927375A550014289D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4295D61827375A550014289D /* ContentView.swift */; };
 		4295D61B27375A5A0014289D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4295D61A27375A5A0014289D /* Assets.xcassets */; };
 		4295D61E27375A5A0014289D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4295D61D27375A5A0014289D /* Preview Assets.xcassets */; };
+		4295D62A27375DCD0014289D /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 4295D62927375DCD0014289D /* CodeScanner */; };
+		4295D62E273768330014289D /* CarBode in Frameworks */ = {isa = PBXBuildFile; productRef = 4295D62D273768330014289D /* CarBode */; };
+		4295D630273784CA0014289D /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4295D62F273784C90014289D /* ScannerView.swift */; };
+		E1609DB1107020C9F5B9D1DF /* Pods_inventoryApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB575DAEFCD6B7DF5C772B77 /* Pods_inventoryApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		42215499273791920083D633 /* Inventory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inventory.swift; sourceTree = "<group>"; };
+		4221549C273792C20083D633 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		4221549E2737AB370083D633 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4295D61327375A550014289D /* inventoryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = inventoryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4295D61627375A550014289D /* inventoryAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inventoryAppApp.swift; sourceTree = "<group>"; };
 		4295D61827375A550014289D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4295D61A27375A5A0014289D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4295D61D27375A5A0014289D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4295D62727375DAD0014289D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4295D62F273784C90014289D /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		65A2EFC302A3F3E41EDC4A11 /* Pods-inventoryApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-inventoryApp.debug.xcconfig"; path = "Target Support Files/Pods-inventoryApp/Pods-inventoryApp.debug.xcconfig"; sourceTree = "<group>"; };
+		95980276CC0DB102A9CD7882 /* Pods-inventoryApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-inventoryApp.release.xcconfig"; path = "Target Support Files/Pods-inventoryApp/Pods-inventoryApp.release.xcconfig"; sourceTree = "<group>"; };
+		EB575DAEFCD6B7DF5C772B77 /* Pods_inventoryApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_inventoryApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,17 +41,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4295D62A27375DCD0014289D /* CodeScanner in Frameworks */,
+				4295D62E273768330014289D /* CarBode in Frameworks */,
+				E1609DB1107020C9F5B9D1DF /* Pods_inventoryApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		422154982737916C0083D633 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				42215499273791920083D633 /* Inventory.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4221549B273792A60083D633 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4221549C273792C20083D633 /* ViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		4295D60A27375A550014289D = {
 			isa = PBXGroup;
 			children = (
 				4295D61527375A550014289D /* inventoryApp */,
 				4295D61427375A550014289D /* Products */,
+				4295D62C273768330014289D /* Frameworks */,
+				FFA26ED11A71AA4CD4358160 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,8 +87,12 @@
 		4295D61527375A550014289D /* inventoryApp */ = {
 			isa = PBXGroup;
 			children = (
+				4221549E2737AB370083D633 /* GoogleService-Info.plist */,
+				4221549B273792A60083D633 /* ViewModel */,
+				422154982737916C0083D633 /* Model */,
+				4295D62727375DAD0014289D /* Info.plist */,
 				4295D61627375A550014289D /* inventoryAppApp.swift */,
-				4295D61827375A550014289D /* ContentView.swift */,
+				4295D62B273766FF0014289D /* View */,
 				4295D61A27375A5A0014289D /* Assets.xcassets */,
 				4295D61C27375A5A0014289D /* Preview Content */,
 			);
@@ -67,6 +107,32 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		4295D62B273766FF0014289D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4295D61827375A550014289D /* ContentView.swift */,
+				4295D62F273784C90014289D /* ScannerView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4295D62C273768330014289D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EB575DAEFCD6B7DF5C772B77 /* Pods_inventoryApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FFA26ED11A71AA4CD4358160 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				65A2EFC302A3F3E41EDC4A11 /* Pods-inventoryApp.debug.xcconfig */,
+				95980276CC0DB102A9CD7882 /* Pods-inventoryApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,15 +140,21 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4295D62127375A5A0014289D /* Build configuration list for PBXNativeTarget "inventoryApp" */;
 			buildPhases = (
+				C0CC5EA64D95D0549B5D0021 /* [CP] Check Pods Manifest.lock */,
 				4295D60F27375A550014289D /* Sources */,
 				4295D61027375A550014289D /* Frameworks */,
 				4295D61127375A550014289D /* Resources */,
+				058B968AAC5B8B39D267430B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = inventoryApp;
+			packageProductDependencies = (
+				4295D62927375DCD0014289D /* CodeScanner */,
+				4295D62D273768330014289D /* CarBode */,
+			);
 			productName = inventoryApp;
 			productReference = 4295D61327375A550014289D /* inventoryApp.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +183,10 @@
 				Base,
 			);
 			mainGroup = 4295D60A27375A550014289D;
+			packageReferences = (
+				4295D62427375DA60014289D /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */,
+				4295D62827375DCD0014289D /* XCRemoteSwiftPackageReference "CodeScanner" */,
+			);
 			productRefGroup = 4295D61427375A550014289D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,16 +203,62 @@
 			files = (
 				4295D61E27375A5A0014289D /* Preview Assets.xcassets in Resources */,
 				4295D61B27375A5A0014289D /* Assets.xcassets in Resources */,
+				4221549F2737AB370083D633 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		058B968AAC5B8B39D267430B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-inventoryApp/Pods-inventoryApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-inventoryApp/Pods-inventoryApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-inventoryApp/Pods-inventoryApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C0CC5EA64D95D0549B5D0021 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-inventoryApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4295D60F27375A550014289D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4221549D273792C20083D633 /* ViewModel.swift in Sources */,
+				4221549A273791920083D633 /* Inventory.swift in Sources */,
+				4295D630273784CA0014289D /* ScannerView.swift in Sources */,
 				4295D61927375A550014289D /* ContentView.swift in Sources */,
 				4295D61727375A550014289D /* inventoryAppApp.swift in Sources */,
 			);
@@ -263,6 +385,7 @@
 		};
 		4295D62227375A5A0014289D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65A2EFC302A3F3E41EDC4A11 /* Pods-inventoryApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -272,17 +395,20 @@
 				DEVELOPMENT_TEAM = 4N72JJBMKU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = inventoryApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "In order to scan a barcode, this app needs access to the camera.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = EliasAb.inventoryApp;
+				PRODUCT_BUNDLE_IDENTIFIER = EliasAb.inventoryAppNew;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -292,6 +418,7 @@
 		};
 		4295D62327375A5A0014289D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 95980276CC0DB102A9CD7882 /* Pods-inventoryApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -301,17 +428,20 @@
 				DEVELOPMENT_TEAM = 4N72JJBMKU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = inventoryApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "In order to scan a barcode, this app needs access to the camera.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = EliasAb.inventoryApp;
+				PRODUCT_BUNDLE_IDENTIFIER = EliasAb.inventoryAppNew;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -341,6 +471,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4295D62427375DA60014289D /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		4295D62827375DCD0014289D /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4295D62927375DCD0014289D /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4295D62827375DCD0014289D /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
+		4295D62D273768330014289D /* CarBode */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4295D62427375DA60014289D /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */;
+			productName = CarBode;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4295D60B27375A550014289D /* Project object */;
 }
