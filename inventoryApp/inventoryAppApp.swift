@@ -15,9 +15,11 @@ struct inventoryAppApp: App {
         FirebaseApp.configure()
     }
     
+    @StateObject var model = ViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(model)
             
         }
     }

@@ -19,7 +19,8 @@ struct DismissingRegView: View {
 }
 
 struct AddView: View {
-    @ObservedObject var model = ViewModel()
+    @EnvironmentObject var model : ViewModel
+    
     
     @State private var registerPressed = false
     
@@ -30,79 +31,77 @@ struct AddView: View {
     @State var stock = ""
 
     var body: some View {
-        ZStack {
-            Color.white
-                .ignoresSafeArea()
-            
-            VStack {
-                NavigationView {
-                    Form {
-                        TextField("Company/Brand", text: $brand)
-                        TextField("Type", text: $type)
-                        TextField("Nickname", text: $nickname)
-                        // Will convert to Int when passing it to the function
-                        TextField("Quantity", text: $stock)
-                            .keyboardType(.decimalPad)
-                    }
-                    .navigationBarTitle("Add item to inventory")
-                }
-                
-                Button(action: {
-
-                    // Call add data
-                    print("id:", self.model.foundItem.id)
-                    model.addData(barcode: self.model.foundItem.id, brand: brand, type: type, stock: Int(stock) ?? 0, nickname: nickname)
-                    
-                    registerPressed = true
-
-                    // Clear the text fields
-                    brand = ""
-                    type = ""
-                    stock = "0"
-                    nickname = ""
-                }, label: {
-                    HStack {
-                        Spacer()
-                        Text("Register")
-                        Spacer()
-                    }
-                })
-                    .padding(.horizontal, 25.0)
-                    .padding(.vertical, 10.0)
-                    .buttonStyle(RoundedRectangleButtonStyle())
-                    .buttonStyle(BorderlessButtonStyle())
-                    .buttonStyle(DefaultButtonStyle())
-                    .sheet(isPresented: $registerPressed) {
-                                DismissingRegView()
+        NavigationView {
+                VStack {
+                    Color.white.edgesIgnoringSafeArea(.all)
+                        Form {
+                            Section(header: Text("REGISTER DETAILS")) {
+                                TextField("Company/Brand", text: $brand)
+                                TextField("Type", text: $type)
+                                TextField("Nickname", text: $nickname)
+                                // Will convert to Int when passing it to the function
+                                TextField("Quantity", text: $stock)
+                                    .keyboardType(.decimalPad)
                             }
-            }
-            
-//            Text("Please enter the details below")
-            
-//            VStack {
-//                TextField("Company/Brand", text: $brand)
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
-//                TextField("Type", text: $type)
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
-//                TextField("Nickname", text: $nickname)
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
-//                // Will convert to Int when passing it to the function
-//                TextField("Quantity", text: $stock)
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
-//                    .keyboardType(.decimalPad)
-//
+                        }
+                        .navigationBarTitle("Item not found")
+                        .background(Color.white)
+                        
+                        Button(action: {
+
+                            // Call add data
+                            model.addData(id: model.barcodeValue, brand: brand, type: type, stock: Int(stock) ?? 0, nickname: nickname)
+                            
+                            registerPressed = true
+
+                            // Clear the text fields
+                            brand = ""
+                            type = ""
+                            stock = "0"
+                            nickname = ""
+                        }, label: {
+                            HStack {
+                                Spacer()
+                                Text("Register")
+                                Spacer()
+                            }
+                        })
+                            .padding(.horizontal, 25.0)
+                            .padding(.vertical, 10.0)
+                            .buttonStyle(RoundedRectangleButtonStyle())
+                            .buttonStyle(BorderlessButtonStyle())
+                            .buttonStyle(DefaultButtonStyle())
+                }
+    //                    .sheet(isPresented: $registerPressed) {
+    //                                DismissingRegView()
+    //                            }
                 
-//
-//            }
-            
-            
+    //            Text("Please enter the details below")
+                
+    //            VStack {
+    //                TextField("Company/Brand", text: $brand)
+    //                    .textFieldStyle(RoundedBorderTextFieldStyle())
+    //                TextField("Type", text: $type)
+    //                    .textFieldStyle(RoundedBorderTextFieldStyle())
+    //                TextField("Nickname", text: $nickname)
+    //                    .textFieldStyle(RoundedBorderTextFieldStyle())
+    //                // Will convert to Int when passing it to the function
+    //                TextField("Quantity", text: $stock)
+    //                    .textFieldStyle(RoundedBorderTextFieldStyle())
+    //                    .keyboardType(.decimalPad)
+    //
+                    
+    //
+    //            }
+                
+                
+            }
         }
-    }
 }
 
 struct AddView_Previews: PreviewProvider {
     static var previews: some View {
-        ScannerView()
+        AddView()
     }
 }
 

@@ -12,6 +12,7 @@
 		4221549F2737AB370083D633 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4221549E2737AB370083D633 /* GoogleService-Info.plist */; };
 		424015B02738D4890006024A /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424015AF2738D4890006024A /* AddView.swift */; };
 		424015B22738EABC0006024A /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424015B12738EABC0006024A /* Button.swift */; };
+		424015B427390DD40006024A /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424015B327390DD30006024A /* RegisterView.swift */; };
 		4295D61727375A550014289D /* inventoryAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4295D61627375A550014289D /* inventoryAppApp.swift */; };
 		4295D61927375A550014289D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4295D61827375A550014289D /* ContentView.swift */; };
 		4295D61B27375A5A0014289D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4295D61A27375A5A0014289D /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 		4221549E2737AB370083D633 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		424015AF2738D4890006024A /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		424015B12738EABC0006024A /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		424015B327390DD30006024A /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		4295D61327375A550014289D /* inventoryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = inventoryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4295D61627375A550014289D /* inventoryAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inventoryAppApp.swift; sourceTree = "<group>"; };
 		4295D61827375A550014289D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				4295D61827375A550014289D /* ContentView.swift */,
 				4295D62F273784C90014289D /* ScannerView.swift */,
 				424015AF2738D4890006024A /* AddView.swift */,
+				424015B327390DD30006024A /* RegisterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				4221549A273791920083D633 /* Inventory.swift in Sources */,
 				424015B02738D4890006024A /* AddView.swift in Sources */,
 				4295D630273784CA0014289D /* ScannerView.swift in Sources */,
+				424015B427390DD40006024A /* RegisterView.swift in Sources */,
 				4295D61927375A550014289D /* ContentView.swift in Sources */,
 				4295D61727375A550014289D /* inventoryAppApp.swift in Sources */,
 			);
