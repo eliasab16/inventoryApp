@@ -69,7 +69,9 @@ class ViewModel: ObservableObject {
                     
                     self.wasFound = true
                 } else {
-                    // Document doesn't
+                    // Document doesn't exist
+                    self.foundItem.id = barcode
+                    
                     self.wasFound = false
                 }
             }
@@ -92,21 +94,19 @@ class ViewModel: ObservableObject {
 //        self.getData()
 //    }
     
-    func addData(brand: String, type: String, stock: Int, barcode: String, nickname : String) {
+    func addData(barcode: String, brand: String, type: String, stock: Int, nickname : String) {
         
         // Get a reference to the database
         let db = Firestore.firestore()
         
         // Add a document to a collection, using the barcode serial number as its unique ID
-        db.collection("Inventory").document(barcode).setData(["brand": brand, "type": type, "stock": stock]) {error in
+        db.collection("Inventory").document(barcode).setData(["brand": brand, "type": type, "stock": stock, "nickname": nickname]) {error in
         // db.collection("tasks").addDocument(data: ["name": name, "completed": completed]) { error in
             
             // Check for errors
             if error == nil {
                 // No errors
                 
-                // Call getData to update the UI with the latest data
-                self.getData()
             }
             else {
                 // Handle the error

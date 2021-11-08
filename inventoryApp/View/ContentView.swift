@@ -11,29 +11,33 @@ import SwiftUI
 struct ContentView: View {
     
     @State var showingScanner = false
-    @State var showingGenerator = false
     
     var body: some View {
-        VStack{
-            Image("logo-cropped")
-                .resizable()
-                .padding([.top, .leading, .trailing])
-                .aspectRatio(contentMode: .fit)
-                
-            Spacer()
+        ZStack {
+            Color.white
+                .ignoresSafeArea()
             
-            Button(action: {
-                self.showingScanner.toggle()
-            }) {
-                Image(systemName: "barcode.viewfinder")
+            VStack{
+                Image("logo-cropped")
                     .resizable()
-                    .frame(width: 45.0, height: 45.0)
+                    .padding([.top, .leading, .trailing])
+                    .aspectRatio(contentMode: .fit)
+                    
+                Spacer()
                 
-                Text("Open Scanner")
-            }.sheet(isPresented: $showingScanner) {
-                ScannerView()
+                Button(action: {
+                    self.showingScanner.toggle()
+                }) {
+                    Image(systemName: "barcode.viewfinder")
+                        .resizable()
+                        .frame(width: 45.0, height: 45.0)
+                    
+                    Text("Open Scanner")
+                }.sheet(isPresented: $showingScanner) {
+                    ScannerView()
+                }
+                
             }
-            
         }
     }
 }
