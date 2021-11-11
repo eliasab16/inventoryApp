@@ -9,6 +9,7 @@
 import SwiftUI
 import CarBode
 import AVFoundation
+import XCTest
 
 struct cameraFrame: Shape {
     func path(in rect: CGRect) -> Path {
@@ -55,9 +56,11 @@ struct ScannerView: View {
     // used to keep the pop up functionality at the end
     @State var nothing = false
     
+    // Show add page
     @State var showingAddPage = false
     // To change view when a barcode is successfully scanned
     @State var barcodeScanned = false
+    @State var barcodeFound = false
     
     @State var barcodeValue = ""
     @State var torchIsOn = false
@@ -72,7 +75,9 @@ struct ScannerView: View {
             
             NavigationView {
                 VStack {
-                    NavigationLink(destination: AddView(), isActive: $barcodeScanned) { EmptyView() }
+                    NavigationLink(destination: RegisterView(), isActive: $barcodeScanned) { EmptyView() }
+                    
+//                    NavigationLink(destination: )
                 
                 
                     Spacer()
@@ -89,6 +94,19 @@ struct ScannerView: View {
                         // try to fetch the item using the barcode
                         model.fetchItem(barcode: String(barcodeValue))
                         barcodeScanned = true
+                        
+                        
+                        
+//                        if barcodeScanned {
+//                            if model.wasFound {
+//                                showingAddPage = false
+//                                barcodeFound = true
+//                            }
+//                            else {
+//                                showingAddPage = true
+//                                barcodeFound = false
+//                            }
+//                        }
                         
                     }
                     onDraw: {
@@ -112,8 +130,8 @@ struct ScannerView: View {
 
                     //Text(barcodeValue)
                     
-                    Text(model.wasFound ? "Item found" : "Item not found")
-                        .foregroundColor(Color.blue)
+//                    Text(model.wasFound ? "Item found" : "Item not found")
+//                        .foregroundColor(Color.blue)
                     
     //                VStack {
     //                    Button(action: {
