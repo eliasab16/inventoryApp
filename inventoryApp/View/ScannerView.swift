@@ -59,8 +59,9 @@ struct ScannerView: View {
     // Show add page
     @State var showingAddPage = false
     // To change view when a barcode is successfully scanned
-    @State var barcodeScanned = false
-    @State var barcodeFound = false
+    @State private var showReg = false
+    //@State var barcodeFound = false
+    @State private var showOptions = false
     
     @State var barcodeValue = ""
     @State var torchIsOn = false
@@ -75,7 +76,9 @@ struct ScannerView: View {
             
             NavigationView {
                 VStack {
-                    NavigationLink(destination: RegisterView(), isActive: $barcodeScanned) { EmptyView() }
+                    NavigationLink(destination: RegisterView(showReg: self.$showReg), isActive: $showReg) { EmptyView() }
+                    
+                    NavigationLink(destination: ItemOptionsView(), isActive: $showOptions) { EmptyView() }
                     
 //                    NavigationLink(destination: )
                 
@@ -91,10 +94,18 @@ struct ScannerView: View {
                     ){
                         print("BarCodeType =",$0.type.rawValue, "Value =",$0.value)
                         barcodeValue = $0.value
+                        
                         // try to fetch the item using the barcode
                         model.fetchItem(barcode: String(barcodeValue))
-                        barcodeScanned = true
                         
+                        // if barcode is not in database
+                        if model.wasFound == false {
+                            showReg = true
+                        }
+//                        else {
+//                            // edit to show view with other options
+//                            showOptions = true
+//                        }
                         
                         
 //                        if barcodeScanned {

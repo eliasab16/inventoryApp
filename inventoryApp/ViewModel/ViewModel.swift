@@ -16,35 +16,41 @@ class ViewModel: ObservableObject {
     @Published var wasFound = false
     @Published var barcodeValue = ""
     
+    @Published var id = ""
+    @Published var brand = ""
+    @Published var type = ""
+    @Published var stock = 0
+    @Published var nickname = ""
+    
     // fetch all data function
     
-    func getData() {
-        // Get a reference to the database
-        let db = Firestore.firestore()
-        // Read the docu,emt at a specific path
-        db.collection("Inventory").getDocuments { snapshot, error in
-            // check for errors
-            if error == nil {
-                if let snapshot = snapshot {
-                    
-                    DispatchQueue.main.async {
-                        // Get all the documents and create Inv structs
-                        self.list = snapshot.documents.map { doc in
-                            // return an Inv struct. The attributes of the documents are accessed as key,items in a dictionary
-                            return Inv(id: doc.documentID,
-                                       brand: doc["brand"] as? String ?? "",
-                                       type: doc["type"] as? String ?? "",
-                                       stock: doc["stock"] as? Int ?? 0,
-                                       nickname: doc["nickname"] as? String ?? "")
-                        }
-                    }
-                }
-            }
-            else {
-                // handle error
-            }
-        }
-    }
+//    func getData() {
+//        // Get a reference to the database
+//        let db = Firestore.firestore()
+//        // Read the docu,emt at a specific path
+//        db.collection("Inventory").getDocuments { snapshot, error in
+//            // check for errors
+//            if error == nil {
+//                if let snapshot = snapshot {
+//
+//                    DispatchQueue.main.async {
+//                        // Get all the documents and create Inv structs
+//                        self.list = snapshot.documents.map { doc in
+//                            // return an Inv struct. The attributes of the documents are accessed as key,items in a dictionary
+//                            return Inv(id: doc.documentID,
+//                                       brand: doc["brand"] as? String ?? "",
+//                                       type: doc["type"] as? String ?? "",
+//                                       stock: doc["stock"] as? Int ?? 0,
+//                                       nickname: doc["nickname"] as? String ?? "")
+//                        }
+//                    }
+//                }
+//            }
+//            else {
+//                // handle error
+//            }
+//        }
+//    }
     
     // check if a document exists
     
@@ -59,20 +65,26 @@ class ViewModel: ObservableObject {
         docRef.getDocument { (doc, error) in
             DispatchQueue.main.async {
             
+                self.barcodeValue = barcode
+                
                 if let doc = doc, doc.exists {
                     // Document exists
                     // Get relevant data
-                    self.foundItem = Inv(id: barcode,
-                                     brand: doc["brand"] as? String ?? "",
-                                     type: doc["type"] as? String ?? "",
-                                     stock: doc["stock"] as? Int ?? 0,
-                                     nickname: doc["nickname"] as? String ?? "")
+                    self.id = barcode
+                    self.brand = doc["brand"] as? String ?? ""
+                    self.type = doc["type"] as? String ?? ""
+                    self.stock = doc["stock"] as? Int ?? 0
+                    self.nickname = doc["nickname"] as? String ?? ""
+
+//                    self.foundItem = Inv(id: barcode,
+//                                     brand: doc["brand"] as? String ?? "",
+//                                     type: doc["type"] as? String ?? "",
+//                                     stock: doc["stock"] as? Int ?? 0,
+//                                     nickname: doc["nickname"] as? String ?? "")
                     
                     self.wasFound = true
                 } else {
                     // Document doesn't exist
-                    self.barcodeValue = barcode
-                    
                     self.wasFound = false
                 }
             }
@@ -101,7 +113,7 @@ class ViewModel: ObservableObject {
         let db = Firestore.firestore()
         
         // Add a document to a collection, using the barcode serial number as its unique ID
-        db.collection("Inventory").document(id).setData(["brand": brand, "type": type, "stock": stock, "nickname": nickname]) {error in
+        db.collection("Inventory").document(id).setData(["brand": brand, "type": type, "stock": stock, "nickname": nickname.isEmpty ? (brand + type) : nickname]) {error in
         // db.collection("tasks").addDocument(data: ["name": name, "completed": completed]) { error in
             
             // Check for errors
