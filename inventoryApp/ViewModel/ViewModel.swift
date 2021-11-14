@@ -11,9 +11,16 @@ import Firebase
 class ViewModel: ObservableObject {
     
     @Published var list = [Inv]()
+    
     // save the fetched item in the struct instance below
     @Published var foundItem = Inv(id: "", brand: "", type: "", stock: 0, nickname: "")
     @Published var wasFound = false
+    
+    // Controlling different views
+    @Published var showRegister = false
+    @Published var showItemOptions = false
+    
+    
     @Published var barcodeValue = ""
     
     @Published var id = ""
@@ -82,10 +89,12 @@ class ViewModel: ObservableObject {
 //                                     stock: doc["stock"] as? Int ?? 0,
 //                                     nickname: doc["nickname"] as? String ?? "")
                     
-                    self.wasFound = true
+                    self.showItemOptions = true
+                    self.showRegister = false
                 } else {
                     // Document doesn't exist
-                    self.wasFound = false
+                    self.showItemOptions = false
+                    self.showRegister = true
                 }
             }
         }
@@ -93,20 +102,24 @@ class ViewModel: ObservableObject {
         
     }
     
-//    func updateData(toUpdate: Inv) {
-//
-//        // Get a reference to the database
-//        let db = Firestore.firestore()
-//
-//        let status = toUpdate.completed ? false : true
-//
-//        // Set the data to update
-//        db.collection("tasks").document(toUpdate.id).setData(["completed": status], merge: true)
-//
-//        // Get data to update the UI
-//        self.getData()
-//    }
+    // Update the quantity in inventory of item "id"
+    func updateQuantity(id: String, quantity: Int) {
+
+        // Get a reference to the database
+        let db = Firestore.firestore()
+
+        //let status = toUpdate.completed ? false : true
+
+        // Set the data to update
+        db.collection("Inventory").document(id).updateData([
+            "stock": quantity
+        ])
+
+        // Get data to update the UI
+        //self.getData()
+    }
     
+    // Add item to inventory
     func addData(id: String, brand: String, type: String, stock: Int, nickname : String) {
         
         // Get a reference to the database

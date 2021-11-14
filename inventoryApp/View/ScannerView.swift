@@ -50,6 +50,14 @@ struct cameraFrame: Shape {
     }
 }
 
+// extension to make ! work with Binding<Bool>
+prefix func ! (value: Binding<Bool>) -> Binding<Bool> {
+    Binding<Bool>(
+        get: { !value.wrappedValue },
+        set: { value.wrappedValue = !$0 }
+    )
+}
+
 struct ScannerView: View {
     @EnvironmentObject var model : ViewModel
     
@@ -59,7 +67,7 @@ struct ScannerView: View {
     // Show add page
     @State var showingAddPage = false
     // To change view when a barcode is successfully scanned
-    @State private var showReg = false
+    //@State private var showReg = false
     //@State var barcodeFound = false
     @State private var showOptions = false
     
@@ -76,15 +84,17 @@ struct ScannerView: View {
             
             NavigationView {
                 VStack {
-                    NavigationLink(destination: RegisterView(showReg: self.$showReg), isActive: $showReg) { EmptyView() }
+//                    NavigationLink(destination: RegisterView(showReg: self.$showReg), isActive: $showReg) { EmptyView() }
                     
-                    NavigationLink(destination: ItemOptionsView(), isActive: $showOptions) { EmptyView() }
+                    NavigationLink(destination: RegisterView(showReg: $model.showRegister), isActive: $model.showRegister) { EmptyView() }
+                    
+                    NavigationLink(destination: ItemOptionsView(), isActive: $model.showItemOptions) { EmptyView() }
                     
 //                    NavigationLink(destination: )
                 
                 
                     Spacer()
-                    
+                    // Scanner parameters
                     CBScanner(
                         supportBarcode: .constant([.code128, .code39, .upce, .ean13]),
                         torchLightIsOn: $torchIsOn,
@@ -99,25 +109,14 @@ struct ScannerView: View {
                         model.fetchItem(barcode: String(barcodeValue))
                         
                         // if barcode is not in database
-                        if model.wasFound == false {
-                            showReg = true
-                        }
+//                        if model.wasFound == false {
+//                            showReg = true
+//                        }
 //                        else {
 //                            // edit to show view with other options
 //                            showOptions = true
 //                        }
                         
-                        
-//                        if barcodeScanned {
-//                            if model.wasFound {
-//                                showingAddPage = false
-//                                barcodeFound = true
-//                            }
-//                            else {
-//                                showingAddPage = true
-//                                barcodeFound = false
-//                            }
-//                        }
                         
                     }
                     onDraw: {
