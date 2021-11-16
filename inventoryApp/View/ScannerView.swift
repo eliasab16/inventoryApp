@@ -88,7 +88,7 @@ struct ScannerView: View {
                     
                     NavigationLink(destination: RegisterView(showReg: $model.showRegister), isActive: $model.showRegister) { EmptyView() }
                     
-                    NavigationLink(destination: ItemOptionsView(), isActive: $model.showItemOptions) { EmptyView() }
+                    NavigationLink(destination: ItemOptionsView(showOptions: $model.showItemOptions), isActive: $model.showItemOptions) { EmptyView() }
                     
 //                    NavigationLink(destination: )
                 
@@ -107,6 +107,11 @@ struct ScannerView: View {
                         
                         // try to fetch the item using the barcode
                         model.fetchItem(barcode: String(barcodeValue))
+                        
+                        // turn off flashlight after scanning, before moving to a new view
+                        if (self.torchIsOn == true) {
+                            self.torchIsOn.toggle()
+                        }
                         
                         // if barcode is not in database
 //                        if model.wasFound == false {
@@ -135,30 +140,6 @@ struct ScannerView: View {
                                     .foregroundColor(.blue))
                     
                     Spacer()
-                    
-                    
-
-                    //Text(barcodeValue)
-                    
-//                    Text(model.wasFound ? "Item found" : "Item not found")
-//                        .foregroundColor(Color.blue)
-                    
-    //                VStack {
-    //                    Button(action: {
-    //                        self.showingAddPage.toggle()
-    //                        self.disableScanner.toggle()
-    //                    }) {
-    //                        Image(systemName: "externaldrive.badge.plus")
-    //                            .resizable()
-    //                            .frame(width: 45.0, height: 36.0)
-    //
-    //                        Text("Add item to inventory")
-    //                    }.sheet(isPresented: $showingAddPage) {
-    //                        AddView()
-    //                    }
-    //                    .disabled(model.wasFound)
-    //
-    //                }
                     
                     Spacer()
                     

@@ -11,9 +11,12 @@ import Firebase
 @main
 struct inventoryAppApp: App {
     
-    init() {
-        FirebaseApp.configure()
-    }
+//    init() {
+//        FirebaseApp.configure()
+//    }
+    
+    // an application delegate adapter is held in appDelegate instance
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     @StateObject var model = ViewModel()
     
@@ -23,5 +26,15 @@ struct inventoryAppApp: App {
                 .environment(\.colorScheme, .light)
             
         }
+    }
+}
+
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        
+        FirebaseApp.configure()
+        
+        return true
     }
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseAuth
 
 class ViewModel: ObservableObject {
     
@@ -20,7 +21,7 @@ class ViewModel: ObservableObject {
     @Published var showRegister = false
     @Published var showItemOptions = false
     
-    
+    // database connection properties
     @Published var barcodeValue = ""
     
     @Published var id = ""
@@ -29,35 +30,14 @@ class ViewModel: ObservableObject {
     @Published var stock = 0
     @Published var nickname = ""
     
-    // fetch all data function
+    // log in properties
+    @Published var signedIn = false
+    let auth = Auth.auth()
+    var isSignedIn: Bool {
+        return auth.currentUser != nil
+    }
     
-//    func getData() {
-//        // Get a reference to the database
-//        let db = Firestore.firestore()
-//        // Read the docu,emt at a specific path
-//        db.collection("Inventory").getDocuments { snapshot, error in
-//            // check for errors
-//            if error == nil {
-//                if let snapshot = snapshot {
-//
-//                    DispatchQueue.main.async {
-//                        // Get all the documents and create Inv structs
-//                        self.list = snapshot.documents.map { doc in
-//                            // return an Inv struct. The attributes of the documents are accessed as key,items in a dictionary
-//                            return Inv(id: doc.documentID,
-//                                       brand: doc["brand"] as? String ?? "",
-//                                       type: doc["type"] as? String ?? "",
-//                                       stock: doc["stock"] as? Int ?? 0,
-//                                       nickname: doc["nickname"] as? String ?? "")
-//                        }
-//                    }
-//                }
-//            }
-//            else {
-//                // handle error
-//            }
-//        }
-//    }
+    
     
     // check if a document exists
     
@@ -105,19 +85,50 @@ class ViewModel: ObservableObject {
     // Update the quantity in inventory of item "id"
     func updateQuantity(id: String, quantity: Int) {
 
+        var newQuantity = self.stock + quantity
+        
         // Get a reference to the database
         let db = Firestore.firestore()
 
+        if (newQuantity < 0) {
+            newQuantity = 0
+        }
+        
+        db.collection("Inventory").document(id).updateData(["stock" : newQuantity])
+    }
+        
         //let status = toUpdate.completed ? false : true
 
-        // Set the data to update
-        db.collection("Inventory").document(id).updateData([
-            "stock": quantity
-        ])
-
-        // Get data to update the UI
-        //self.getData()
-    }
+        
+        // if request is to decrement, then check if stock is negative, set to 0
+//        if (quantity < 0) {
+//
+//            if (NewQuan < 0) {
+//                newQuantity = 0
+//            }
+//            else {
+//                quantity = self.stock + quantity
+//            }
+//
+//
+//            // still need to undertand the async
+//            let docRef = db.collection("Inventory").document(id)
+//
+//            docRef.getDocument { (doc, error) in
+//                DispatchQueue.main.async {
+//
+//                    if let doc = doc, doc.exists {
+//                        if ((doc["stock"] as! Int) < 0) {
+//                            db.collection("Inventory").document(id).updateData([
+//                                "stock": 0
+//                            ])
+//                        }
+//                    }
+//                }
+        
+        
+    // Get data to update the UI
+    //self.getData()
     
     // Add item to inventory
     func addData(id: String, brand: String, type: String, stock: Int, nickname : String) {
@@ -142,6 +153,33 @@ class ViewModel: ObservableObject {
         
     }
     
+    // sign in function
+    func signIn(email: String, password: String) {
+        auth.signIn(withEmail: email,
+                    password: password) { [weak self] result, error in
+            guard result != nil, error == nil else {
+                return
+            }
+            
+            // added self"?" and [weak self] above to prevent any memory leaks
+            DispatchQueue.main.async {
+                self?.signedIn = true
+            }
+        }
+    }
+    
+    // sign out function
+    func signOut() {
+        try? auth.signOut()
+        
+        self.signedIn = false
+    }
+
+    
+    
+}
+
+
 //    func deleteData(toDelete: Inv) {
 //
 //        // Get a reference
@@ -166,6 +204,33 @@ class ViewModel: ObservableObject {
 //            }
 //        }
 //    }
-    
-    
-}
+
+// fetch all data function
+
+//    func getData() {
+//        // Get a reference to the database
+//        let db = Firestore.firestore()
+//        // Read the docu,emt at a specific path
+//        db.collection("Inventory").getDocuments { snapshot, error in
+//            // check for errors
+//            if error == nil {
+//                if let snapshot = snapshot {
+//
+//                    DispatchQueue.main.async {
+//                        // Get all the documents and create Inv structs
+//                        self.list = snapshot.documents.map { doc in
+//                            // return an Inv struct. The attributes of the documents are accessed as key,items in a dictionary
+//                            return Inv(id: doc.documentID,
+//                                       brand: doc["brand"] as? String ?? "",
+//                                       type: doc["type"] as? String ?? "",
+//                                       stock: doc["stock"] as? Int ?? 0,
+//                                       nickname: doc["nickname"] as? String ?? "")
+//                        }
+//                    }
+//                }
+//            }
+//            else {
+//                // handle error
+//            }
+//        }
+//    }

@@ -10,9 +10,9 @@ import UIKit
 
 struct RegisterView: View {
     // passing variable showReg from Scanner View - this variable indicates whether Register View should be displayed
-    @Binding var showReg: Bool
-    
     @EnvironmentObject var model : ViewModel
+    
+    @Binding var showReg: Bool
     
     @State var type = ""
     @State var brand = ""
