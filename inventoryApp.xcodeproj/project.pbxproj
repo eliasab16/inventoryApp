@@ -25,6 +25,7 @@
 		42DA6162273E2DB400098E1D /* ItemOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DA6161273E2DB400098E1D /* ItemOptionsView.swift */; };
 		42DD81EB27411C0E008B8700 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DD81EA27411C0E008B8700 /* SignInView.swift */; };
 		42DD81ED274375A5008B8700 /* KeyboardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DD81EC274375A4008B8700 /* KeyboardHandler.swift */; };
+		42DD81F127478AB6008B8700 /* ItemsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DD81F027478AB6008B8700 /* ItemsListView.swift */; };
 		E1609DB1107020C9F5B9D1DF /* Pods_inventoryApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB575DAEFCD6B7DF5C772B77 /* Pods_inventoryApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		42DA6161273E2DB400098E1D /* ItemOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemOptionsView.swift; sourceTree = "<group>"; };
 		42DD81EA27411C0E008B8700 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		42DD81EC274375A4008B8700 /* KeyboardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHandler.swift; sourceTree = "<group>"; };
+		42DD81F027478AB6008B8700 /* ItemsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsListView.swift; sourceTree = "<group>"; };
 		65A2EFC302A3F3E41EDC4A11 /* Pods-inventoryApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-inventoryApp.debug.xcconfig"; path = "Target Support Files/Pods-inventoryApp/Pods-inventoryApp.debug.xcconfig"; sourceTree = "<group>"; };
 		95980276CC0DB102A9CD7882 /* Pods-inventoryApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-inventoryApp.release.xcconfig"; path = "Target Support Files/Pods-inventoryApp/Pods-inventoryApp.release.xcconfig"; sourceTree = "<group>"; };
 		EB575DAEFCD6B7DF5C772B77 /* Pods_inventoryApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_inventoryApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +138,7 @@
 				424015B327390DD30006024A /* RegisterView.swift */,
 				42DA6161273E2DB400098E1D /* ItemOptionsView.swift */,
 				42DD81EA27411C0E008B8700 /* SignInView.swift */,
+				42DD81F027478AB6008B8700 /* ItemsListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42DD81F127478AB6008B8700 /* ItemsListView.swift in Sources */,
 				424015B22738EABC0006024A /* Button.swift in Sources */,
 				4221549D273792C20083D633 /* ViewModel.swift in Sources */,
 				42DA6162273E2DB400098E1D /* ItemOptionsView.swift in Sources */,

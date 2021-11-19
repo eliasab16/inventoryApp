@@ -14,5 +14,7 @@ struct Inv: Identifiable {
     var type: String
     var stock: Int
     var nickname : String
+    var supplier : String
+    var recQuantity: Int
 }
 

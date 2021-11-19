@@ -50,7 +50,7 @@ struct AddView: View {
                         Button(action: {
 
                             // Call add data
-                            model.addData(id: model.barcodeValue, brand: brand, type: type, stock: Int(stock) ?? 0, nickname: nickname)
+//                            model.addData(id: model.barcodeValue, brand: brand, type: type, stock: Int(stock) ?? 0, nickname: nickname)
                             
                             registerPressed = true
 

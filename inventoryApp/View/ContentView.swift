@@ -58,11 +58,11 @@ struct LogInView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 300, height: 300)
-                TextField("Email Address", text: $email)
+                TextField("דוא״ל", text: $email)
                     .disableAutocorrection(true)
                     .autocapitalization(.none)
                     .padding()
-                SecureField("Password", text: $password)
+                SecureField("סיסמה", text: $password)
                     .disableAutocorrection(true)
                     .autocapitalization(.none)
                     .padding()
@@ -72,7 +72,7 @@ struct LogInView: View {
                         model.signIn(email: email, password: password)
                     }) {
                         Spacer()
-                        Text("Sign In")
+                        Text("התחבר")
                         Spacer()
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -80,6 +80,9 @@ struct LogInView: View {
                     .disabled(email.isEmpty || password.isEmpty)
                 }
             }
+        }
+        .alert(isPresented: $model.loginError) {
+            Alert(title: Text("Incorrect email or password"))
         }
         // keyboard avoidance - push form up
     }
@@ -93,6 +96,7 @@ struct AccessView: View {
     @EnvironmentObject var model : ViewModel
     
     @State var showingScanner = false
+    @State var showingList = false
     
     var body: some View {
         ZStack {
@@ -121,6 +125,7 @@ struct AccessView: View {
                     Spacer()
                     Spacer()
                     
+                    // scanner button
                     Button(action: {
                         self.showingScanner.toggle()
                     }) {
@@ -132,10 +137,23 @@ struct AccessView: View {
                     }.sheet(isPresented: $showingScanner) {
                         ScannerView()
                     }
-                    Spacer()
+                    
+                    // items list button
+                    Button(action: {
+                        model.getData()
+                        self.showingList.toggle()
+                    }) {
+                        Text("מלאי")
+                        Image(systemName: "list.bullet.rectangle")
+                            .resizable()
+                            .frame(width: 45.0, height: 45.0)
+                    }.sheet(isPresented: $showingList) {
+                        ItemsListView()
+                    }
+                    
                     // sign out button
                     Button(action: {
-                        self.showingScanner.toggle()
+                        model.signOut()
                     }) {
                         Text("התנתק")
                         Image(systemName: "arrow.backward.square")

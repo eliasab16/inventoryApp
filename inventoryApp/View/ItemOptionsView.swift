@@ -21,17 +21,52 @@ struct ItemOptionsView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Form {
-                Section(header: Text("QUANTITY IN STOCK")) {
-                    Text(String(model.stock))
+                // item details
+                Section(header: Text("פרטים")) {
+                    HStack {
+                        Text(String(model.brand))
+                            .foregroundColor(Color.gray)
+                        Spacer()
+                        Text("חברה")
+                    }
+                    
+                    HStack {
+                        Text(String(model.type))
+                            .foregroundColor(Color.gray)
+                        Spacer()
+                        Text("סוג")
+                    }
+                    
+                    HStack {
+                        Text(String(model.nickname))
+                            .foregroundColor(Color.gray)
+                        Spacer()
+                        Text("כינוי")
+                    }
+                    
+                    HStack {
+                        Text(String(model.supplier))
+                            .foregroundColor(Color.gray)
+                        Spacer()
+                        Text("ספק")
+                    }
+                    
+                    HStack {
+                        Text(String(model.stock))
+                            .foregroundColor(Color.gray)
+                        Text("/ " + String(model.recQuantity))
+                        Spacer()
+                        Text("כמות במלאי")
+                    }
                 }
                 // Pick quantity
-                Section(header: Text("NUMBER OF ITEMS")) {
-                    TextField("Quantity", text: $quantity)
+                Section(header: Text("מספר פריטים לפעולה")) {
+                    TextField("כמות", text: $quantity)
                         .keyboardType(.decimalPad)
                 }
                 
                 // Pick action
-                Section(header: Text("ACTION TO PERFORM")) {
+                Section(header: Text("פעולה")) {
                     // Button to add into inventory
                     Button(action: {
                         model.updateQuantity(id: model.barcodeValue, quantity: Int(quantity) ?? 0)
@@ -45,7 +80,7 @@ struct ItemOptionsView: View {
                                 .resizable()
                                 .frame(width: 22.0, height: 22.0)
                             
-                            Text("Check into inventory")
+                            Text("הוסיף למלאי")
                         }
                         //                            .foregroundColor(Color(UIColor.systemPurple))
                     }
@@ -66,7 +101,7 @@ struct ItemOptionsView: View {
                                 .resizable()
                                 .frame(width: 22.0, height: 22.0)
                             
-                            Text("Check out of inventory")
+                            Text("הוציא מהמלאי")
                         }
                         //                            .foregroundColor(Color(UIColor.systemBlue))
                     }
@@ -80,6 +115,7 @@ struct ItemOptionsView: View {
                 hideKeyboard()
             }
             .ignoresSafeArea()
+            .navigationBarTitle("פרטים")
             
         }
         Spacer()
