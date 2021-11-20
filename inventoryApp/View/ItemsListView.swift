@@ -14,22 +14,27 @@ struct ItemsListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: ItemOptionsView(showOptions: $model.showItemOptions), isActive: $model.showItemOptions) { EmptyView() }
+                if model.list.isEmpty {
+                    Text("אין פריטים במלאי")
+                }
                 
-                
-                Form {
-                    Section(header: Text("תבחר פריט")) {
-                        List(model.list) { item in
-                            HStack {
-                                Button {
-                                    model.fetchItem(barcode: item.id)
-                                } label: {
-                                    Image(systemName: "pencil")
+                else {
+                    NavigationLink(destination: ItemOptionsView(showOptions: $model.showItemOptions), isActive: $model.showItemOptions) { EmptyView() }
+                    
+                    Form {
+                        Section(header: Text("בחר פריט")) {
+                            List(model.list) { item in
+                                HStack {
+                                    Button {
+                                        model.fetchItem(barcode: item.id)
+                                    } label: {
+                                        Image(systemName: "pencil")
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                    .foregroundColor(Color(UIColor.systemBlue))
+                                    Spacer()
+                                    Text(item.nickname)
                                 }
-                                .buttonStyle(PlainButtonStyle())
-                                .foregroundColor(Color(UIColor.systemBlue))
-                                Spacer()
-                                Text(item.nickname)
                             }
                         }
                     }

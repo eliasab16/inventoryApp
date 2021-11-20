@@ -14,39 +14,62 @@ struct ItemOptionsView: View {
     @Binding var showOptions: Bool
     
     @State var quantity = ""
+    @State var brand = ""
+    @State var type = ""
+    @State var nickname = ""
+    @State var supplier = ""
+    @State var recQuantity = ""
     
-    @State var showingAddInv = false
-    @State var showingOutInv = false
+    @State var editDisabled = true
+    @State var showEditBtn = true
+    @State var showingDeleteAlert = false
     
     var body: some View {
         VStack(alignment: .leading) {
             Form {
-                // item details
+                // section
+                // list all item details
                 Section(header: Text("פרטים")) {
                     HStack {
-                        Text(String(model.brand))
+                        if !editDisabled {
+                            Image(systemName: "arrow.right")
+                        }
+                        TextField(String(model.brand), text: $brand)
                             .foregroundColor(Color.gray)
+                            .disabled(editDisabled)
                         Spacer()
                         Text("חברה")
                     }
                     
                     HStack {
-                        Text(String(model.type))
+                        if !editDisabled {
+                            Image(systemName: "arrow.right")
+                        }
+                        TextField(String(model.type), text: $type)
                             .foregroundColor(Color.gray)
+                            .disabled(editDisabled)
                         Spacer()
                         Text("סוג")
                     }
                     
                     HStack {
-                        Text(String(model.nickname))
+                        if !editDisabled {
+                            Image(systemName: "arrow.right")
+                        }
+                        TextField(String(model.nickname), text: $nickname)
                             .foregroundColor(Color.gray)
+                            .disabled(editDisabled)
                         Spacer()
                         Text("כינוי")
                     }
                     
                     HStack {
-                        Text(String(model.supplier))
+                        if !editDisabled {
+                            Image(systemName: "arrow.right")
+                        }
+                        TextField(String(model.supplier), text: $supplier)
                             .foregroundColor(Color.gray)
+                            .disabled(editDisabled)
                         Spacer()
                         Text("ספק")
                     }
@@ -58,13 +81,50 @@ struct ItemOptionsView: View {
                         Spacer()
                         Text("כמות במלאי")
                     }
+                    
+                    // edit information and done buttons - alternate between the two button
+                    HStack {
+                        if editDisabled {
+                            Button(action: {
+//                                showEditBtn = false
+                                editDisabled = false
+                            }) {
+                                Spacer()
+                                Text("ערוך פרטים")
+                                Image(systemName: "pencil")
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .foregroundColor(Color(UIColor.systemBlue))
+                        }
+                        else {
+                            Button(action: {
+                                // showEditBtn = true
+                                self.model.updateData(id: model.barcodeValue,
+                                                      brand: brand.isEmpty ? model.brand : brand,
+                                                      type: type.isEmpty ? model.type : type,
+                                                      nickname: nickname.isEmpty ? model.nickname: nickname,
+                                                      supplier: supplier.isEmpty ? model.supplier : supplier)
+                                editDisabled = true
+                            }) {
+                                Spacer()
+                                Text("סיום")
+                                Image(systemName: "checkmark")
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .foregroundColor(Color(UIColor.systemBlue))
+                        }
+                    }
+                    
                 }
+                
+                // section
                 // Pick quantity
                 Section(header: Text("מספר פריטים לפעולה")) {
                     TextField("כמות", text: $quantity)
                         .keyboardType(.decimalPad)
                 }
                 
+                // section
                 // Pick action
                 Section(header: Text("פעולה")) {
                     // Button to add into inventory
@@ -76,11 +136,11 @@ struct ItemOptionsView: View {
                         showOptions.toggle()
                     }) {
                         HStack {
+                            Spacer()
+                            Text("הוסיף למלאי")
                             Image(systemName: "tray.and.arrow.down.fill")
                                 .resizable()
                                 .frame(width: 22.0, height: 22.0)
-                            
-                            Text("הוסיף למלאי")
                         }
                         //                            .foregroundColor(Color(UIColor.systemPurple))
                     }
@@ -97,17 +157,37 @@ struct ItemOptionsView: View {
                         showOptions.toggle()
                     }) {
                         HStack {
+                            Spacer()
+                            Text("הוציא מהמלאי")
                             Image(systemName: "tray.and.arrow.up.fill")
                                 .resizable()
                                 .frame(width: 22.0, height: 22.0)
-                            
-                            Text("הוציא מהמלאי")
                         }
                         //                            .foregroundColor(Color(UIColor.systemBlue))
                     }
                     .disabled(quantity.isEmpty)
                     .buttonStyle(PlainButtonStyle())
                     .foregroundColor(Color(UIColor.systemBlue))
+                }
+                
+                // section
+                // delete item from inventorye
+                Section {
+                    HStack {
+                        Button(action: {
+                            // self.showingOutInv.toggle()
+                            showingDeleteAlert = true
+                        }) {
+                            HStack {
+                                Spacer()
+                                Text("מחק")
+                                Spacer()
+                            }
+                            //                            .foregroundColor(Color(UIColor.systemBlue))
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .foregroundColor(Color(UIColor.systemRed))
+                    }
                 }
             }
             // hide the keyboard if user clicks outside the form
@@ -116,6 +196,19 @@ struct ItemOptionsView: View {
             }
             .ignoresSafeArea()
             .navigationBarTitle("פרטים")
+            .alert(isPresented: $showingDeleteAlert) {
+                        Alert(
+                            title: Text("בטוח למחוק?"),
+                            message: Text("לא ניתן לשחזר אחרי מחיקה"),
+                            primaryButton: .destructive(Text("מחק")) {
+                                // delete
+                                model.deleteData(id: model.barcodeValue)
+                                // return to previous view
+                                showOptions.toggle()
+                            },
+                            secondaryButton: .cancel(Text("ביטול"))
+                        )
+                    }
             
         }
         Spacer()

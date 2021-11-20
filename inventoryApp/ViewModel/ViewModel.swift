@@ -75,7 +75,6 @@ class ViewModel: ObservableObject {
     
     
     // check if a document exists
-    
     func fetchItem(barcode: String) {
         
         // Get a reference to the database
@@ -133,10 +132,24 @@ class ViewModel: ObservableObject {
         
         db.collection("Inventory").document(id).updateData(["stock" : newQuantity])
     }
+    
+    
+    // update item information - not including quantity
+    func updateData(id: String, brand: String, type: String, nickname: String, supplier: String) {
+        // Get a reference to the database
+        let db = Firestore.firestore()
         
+        // update given data, if none given, just
+        db.collection("Inventory").document(id).updateData(["brand": brand,
+                                                            "type": type,
+                                                            "nickname": nickname,
+                                                            "supplier": supplier])
+                                                            
+        // call get the data to get the updated list and properties
+        self.fetchItem(barcode: id)
+        self.getData()
+    }
         
-    // Get data to update the UI
-    //self.getData()
     
     // Add item to inventory
     func addData(id: String, brand: String, type: String, stock: Int, nickname : String, supplier: String, recQuantity: Int) {
@@ -154,7 +167,7 @@ class ViewModel: ObservableObject {
             
             // Check for errors
             if error == nil {
-                // No errors
+                self.getData()
                 
             }
             else {
@@ -164,6 +177,7 @@ class ViewModel: ObservableObject {
         }
         
     }
+    
     
     // sign in function
     func signIn(email: String, password: String) {
@@ -188,34 +202,32 @@ class ViewModel: ObservableObject {
         self.signedIn = false
     }
 
-    
-    
+
+    // delete entire document
+    func deleteData(id: String) {
+
+        // Get a reference
+        let db = Firestore.firestore()
+
+        // Specify the document to delete
+        // db.collection("tasks").document(toDelete.id).delete()
+        db.collection("Inventory").document(id).delete { error in
+            // Check for errors
+            if error == nil {
+                // No errors
+
+                // Update te UI from the main threade
+                DispatchQueue.main.async {
+
+                    // This will iterate over the list, and for each item, it will compare its id, then delete it if it's a match
+                    self.list.removeAll { todo in
+                        // Check for the todo to remove
+                        return todo.id == id
+                    }
+                }
+            }
+        }
+    }
+
 }
-
-
-//    func deleteData(toDelete: Inv) {
-//
-//        // Get a reference
-//        let db = Firestore.firestore()
-//
-//        // Specify the document to delete
-//        // db.collection("tasks").document(toDelete.id).delete()
-//        db.collection("tasks").document(toDelete.id).delete { error in
-//            // Check for errors
-//            if error == nil {
-//                // No errors
-//
-//                // Update te UI from the main threade
-//                DispatchQueue.main.async {
-//
-//                    // This will iterate over the list, and for each item, it will compare its id, then delete it if it's a match
-//                    self.list.removeAll { todo in
-//                        // Check for the todo to remove
-//                        return todo.id == toDelete.id
-//                    }
-//                }
-//            }
-//        }
-//    }
-
     

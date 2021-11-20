@@ -17,9 +17,11 @@ struct ContentView: View {
         NavigationView {
             if model.signedIn {
                 AccessView()
+                    .environmentObject(model)
             }
             else {
                 LogInView()
+                    .environmentObject(model)
             }
         }
         .onAppear {
@@ -136,6 +138,7 @@ struct AccessView: View {
                         
                     }.sheet(isPresented: $showingScanner) {
                         ScannerView()
+                            .environmentObject(model)
                     }
                     
                     // items list button
@@ -149,6 +152,7 @@ struct AccessView: View {
                             .frame(width: 45.0, height: 45.0)
                     }.sheet(isPresented: $showingList) {
                         ItemsListView()
+                            .environmentObject(model)
                     }
                     
                     // sign out button
