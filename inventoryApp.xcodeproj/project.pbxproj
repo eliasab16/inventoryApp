@@ -49,6 +49,7 @@
 		42DD81EA27411C0E008B8700 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		42DD81EC274375A4008B8700 /* KeyboardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHandler.swift; sourceTree = "<group>"; };
 		42DD81F027478AB6008B8700 /* ItemsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsListView.swift; sourceTree = "<group>"; };
+		42DD81F4275A1126008B8700 /* secondAdHocRelease.mobileprovision */ = {isa = PBXFileReference; lastKnownFileType = file; name = secondAdHocRelease.mobileprovision; path = ../../../Downloads/secondAdHocRelease.mobileprovision; sourceTree = "<group>"; };
 		65A2EFC302A3F3E41EDC4A11 /* Pods-inventoryApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-inventoryApp.debug.xcconfig"; path = "Target Support Files/Pods-inventoryApp/Pods-inventoryApp.debug.xcconfig"; sourceTree = "<group>"; };
 		95980276CC0DB102A9CD7882 /* Pods-inventoryApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-inventoryApp.release.xcconfig"; path = "Target Support Files/Pods-inventoryApp/Pods-inventoryApp.release.xcconfig"; sourceTree = "<group>"; };
 		EB575DAEFCD6B7DF5C772B77 /* Pods_inventoryApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_inventoryApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +92,7 @@
 		4295D60A27375A550014289D = {
 			isa = PBXGroup;
 			children = (
+				42DD81F4275A1126008B8700 /* secondAdHocRelease.mobileprovision */,
 				4295D61527375A550014289D /* inventoryApp */,
 				4295D61427375A550014289D /* Products */,
 				4295D62C273768330014289D /* Frameworks */,
@@ -425,6 +427,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"inventoryApp/Preview Content\"";
@@ -503,9 +506,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = EliasAb.inventoryAppNew;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -515,7 +519,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"inventoryApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 4N72JJBMKU;
@@ -644,9 +649,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = EliasAb.inventoryAppNew;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = secondAdHocRelease;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

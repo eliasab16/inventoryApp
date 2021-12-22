@@ -29,7 +29,7 @@ struct ItemOptionsView: View {
             Form {
                 // section
                 // list all item details
-                Section(header: Text("פרטים")) {
+                Section(header: Text("פרטים"), footer: Text("* זו לא הכמות הנוכחית במאלי")) {
                     HStack {
                         if !editDisabled {
                             Image(systemName: "arrow.right")
@@ -75,11 +75,21 @@ struct ItemOptionsView: View {
                     }
                     
                     HStack {
-                        Text(String(model.stock))
-                            .foregroundColor(Color.gray)
-                        Text("/ " + String(model.recQuantity))
-                        Spacer()
-                        Text("כמות במלאי")
+                        if editDisabled {
+                            Text(String(model.stock))
+                                .foregroundColor(Color.gray)
+                            Text("/ " + String(model.recQuantity))
+                            Spacer()
+                            Text("כמות במלאי")
+                        }
+                        // edit recommended quantity
+                        else {
+                            Image(systemName: "arrow.right")
+                            TextField(String(model.recQuantity), text: $recQuantity)
+                                .foregroundColor(Color.gray)
+                            Spacer()
+                            Text("כמות מומלצת במלאי*")
+                        }
                     }
                     
                     // edit information and done buttons - alternate between the two button
@@ -103,7 +113,8 @@ struct ItemOptionsView: View {
                                                       brand: brand.isEmpty ? model.brand : brand,
                                                       type: type.isEmpty ? model.type : type,
                                                       nickname: nickname.isEmpty ? model.nickname: nickname,
-                                                      supplier: supplier.isEmpty ? model.supplier : supplier)
+                                                      supplier: supplier.isEmpty ? model.supplier : supplier,
+                                                      recQuantity: (recQuantity.isEmpty ? model.recQuantity : Int(recQuantity)) ?? model.recQuantity)
                                 editDisabled = true
                             }) {
                                 Spacer()

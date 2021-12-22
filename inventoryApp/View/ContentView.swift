@@ -105,14 +105,14 @@ struct AccessView: View {
             Color.white
                 .ignoresSafeArea()
             
-//            VStack(alignment: .trailing) {
-//                Button(action: {
-//                    model.signOut()
-//                }, label: {
-//                    Text("Sign Out")
-//                        .foregroundColor(Color.blue)
-//                })
-//            }
+            //            VStack(alignment: .trailing) {
+            //                Button(action: {
+            //                    model.signOut()
+            //                }, label: {
+            //                    Text("Sign Out")
+            //                        .foregroundColor(Color.blue)
+            //                })
+            //            }
             VStack{
                 Image("logo-cropped")
                     .resizable()
@@ -137,10 +137,11 @@ struct AccessView: View {
                             .frame(width: 45.0, height: 45.0)
                         
                     }.sheet(isPresented: $showingScanner) {
-                        ScannerView()
-                            .environmentObject(model)
+                        NavigationView {
+                            ScannerView()
+                                .environmentObject(model)
+                        }
                     }
-                    
                     // items list button
                     Button(action: {
                         model.getData()

@@ -24,40 +24,81 @@ struct RegisterView: View {
     
     @State var editDisable = true
     
+    @State private var selectedSupplier = 1
+    var suppliers = ["ABB", "Schneider", "Kahane"]
+    
     var body: some View {
-            VStack {
+        VStack {
+//            NavigationView {
                 Form {
                     HStack {
-                        Spacer()
                         Text("פריט אינו קיים במלאי")
                     }
+                    
+                    // section
+                    // item details
                     Section(header: Text("הקלד פרטים")) {
                         HStack {
-                            TextField("חברה", text: $brand)
-                                .disabled(editDisable)
-                            Spacer()
                             Text("חברה")
+                            Spacer()
+                            TextField("חברה", text: $brand)
+                                .fixedSize()
                         }
-                        TextField("סוג פריט", text: $type)
-                        TextField("כינוי", text: $nickname)
-                        // !! should create a dropdown menu
-                        TextField("ספק", text: $supplier)
-                        TextField("כמות", text: $stock)
-                            .keyboardType(.decimalPad)
-                        TextField("כמות מומלצת", text: $recQuantity)
-                            .keyboardType(.decimalPad)
+                        
+                        HStack {
+                            Text("סוג פריט")
+                            Spacer()
+                            TextField("סוג פריט", text: $type)
+                                .fixedSize()
+                        }
+                        
+                        HStack {
+                            Text("כינוי")
+                            Spacer()
+                            TextField("כינוי", text: $nickname)
+                                .fixedSize()
+                        }
+                        
+                        HStack {
+                            Picker(selection: $selectedSupplier, label: Text("ספק")) {
+                                //                                ForEach(0 ..<suppliers.count) { index in
+                                //                                    Text(self.suppliers[index]).tag(index)
+                                //                                }
+                                Text("ABB").tag(0)
+                                Text("Schneider").tag(1)
+                                Text("Kahane").tag(2)
+                            }
+                        }
+                        
+                        HStack {
+                            Text("ספק")
+                            Spacer()
+                            TextField("ספק", text: $supplier)
+                                .fixedSize()
+                        }
+                        
+                        HStack {
+                            // !! should create a dropdown menu
+                            Text("כמות במלאי")
+                            Spacer()
+                            TextField("כמות במלאי", text: $stock)
+                                .keyboardType(.decimalPad)
+                                .fixedSize()
+                        }
+                        
+                        HStack {
+                            // !! should create a dropdown menu
+                            Text("כמות מומלצת")
+                            Spacer()
+                            TextField("כמות מומלצת", text: $recQuantity)
+                                .keyboardType(.decimalPad)
+                                .fixedSize()
+                        }
                     }
+                    
+                    // section
                     // button section
                     Section {
-                        Button  {
-                            editDisable.toggle()
-                        } label: {
-                            Text("edit")
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        .foregroundColor(Color(UIColor.systemBlue))
-
-                        
                         Button(action: {
                             
                             // Call add data
@@ -84,11 +125,6 @@ struct RegisterView: View {
                         })
                             .buttonStyle(PlainButtonStyle())
                             .foregroundColor(Color(UIColor.systemBlue))
-                        //                            .padding(.horizontal, 70.0)
-                        //                            .padding(.vertical, 30.0)
-                        //                            .buttonStyle(RoundedRectangleButtonStyle())
-                        //                            .buttonStyle(BorderlessButtonStyle())
-                        //                            .buttonStyle(DefaultButtonStyle())
                         // if any of the three entries (except nickname) is empty, disable button
                             .disabled(type.isEmpty || brand.isEmpty || stock.isEmpty)
                     }
@@ -98,14 +134,18 @@ struct RegisterView: View {
                 .onTapGesture {
                     hideKeyboard()
                 }
+                .environment(\.layoutDirection, .rightToLeft)
             }
-        
-    }
+        }
+//    }
 }
 
 struct RegisterView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterView(showReg: .constant(true))
-            .preferredColorScheme(.light)
+        Group {
+            RegisterView(showReg: .constant(true))
+                .preferredColorScheme(.light)
+                .environment(\.layoutDirection, .rightToLeft)
+        }
     }
 }

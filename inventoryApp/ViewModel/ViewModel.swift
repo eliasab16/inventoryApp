@@ -135,7 +135,7 @@ class ViewModel: ObservableObject {
     
     
     // update item information - not including quantity
-    func updateData(id: String, brand: String, type: String, nickname: String, supplier: String) {
+    func updateData(id: String, brand: String, type: String, nickname: String, supplier: String, recQuantity: Int) {
         // Get a reference to the database
         let db = Firestore.firestore()
         
@@ -143,7 +143,8 @@ class ViewModel: ObservableObject {
         db.collection("Inventory").document(id).updateData(["brand": brand,
                                                             "type": type,
                                                             "nickname": nickname,
-                                                            "supplier": supplier])
+                                                            "supplier": supplier,
+                                                            "recQuantity": recQuantity])
                                                             
         // call get the data to get the updated list and properties
         self.fetchItem(barcode: id)
