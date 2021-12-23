@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4221549A273791920083D633 /* Inventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42215499273791920083D633 /* Inventory.swift */; };
-		4221549D273792C20083D633 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221549C273792C20083D633 /* ViewModel.swift */; };
 		4221549F2737AB370083D633 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4221549E2737AB370083D633 /* GoogleService-Info.plist */; };
 		424015B02738D4890006024A /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424015AF2738D4890006024A /* AddView.swift */; };
 		424015B22738EABC0006024A /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424015B12738EABC0006024A /* Button.swift */; };
@@ -20,6 +19,7 @@
 		4295D62A27375DCD0014289D /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 4295D62927375DCD0014289D /* CodeScanner */; };
 		4295D62E273768330014289D /* CarBode in Frameworks */ = {isa = PBXBuildFile; productRef = 4295D62D273768330014289D /* CarBode */; };
 		4295D630273784CA0014289D /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4295D62F273784C90014289D /* ScannerView.swift */; };
+		42AF860927744B90009B5BC8 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221549C273792C20083D633 /* ViewModel.swift */; };
 		42DA6157273A4CD800098E1D /* libswiftWebKit.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DA6156273A4CD800098E1D /* libswiftWebKit.tbd */; };
 		42DA615E273C8E4300098E1D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DA6158273C72F300098E1D /* XCTest.framework */; };
 		42DA6162273E2DB400098E1D /* ItemOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DA6161273E2DB400098E1D /* ItemOptionsView.swift */; };
@@ -289,7 +289,6 @@
 			files = (
 				42DD81F127478AB6008B8700 /* ItemsListView.swift in Sources */,
 				424015B22738EABC0006024A /* Button.swift in Sources */,
-				4221549D273792C20083D633 /* ViewModel.swift in Sources */,
 				42DA6162273E2DB400098E1D /* ItemOptionsView.swift in Sources */,
 				4221549A273791920083D633 /* Inventory.swift in Sources */,
 				42DD81EB27411C0E008B8700 /* SignInView.swift in Sources */,
@@ -298,6 +297,7 @@
 				424015B427390DD40006024A /* RegisterView.swift in Sources */,
 				4295D61927375A550014289D /* ContentView.swift in Sources */,
 				4295D61727375A550014289D /* inventoryAppApp.swift in Sources */,
+				42AF860927744B90009B5BC8 /* ViewModel.swift in Sources */,
 				42DD81ED274375A5008B8700 /* KeyboardHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -76,6 +76,7 @@ struct ScannerView: View {
     @State var showingAlert = false
     @State var cameraPosition = AVCaptureDevice.Position.back
 
+    
     var body: some View {
         ZStack {
             Image("white")
@@ -83,20 +84,15 @@ struct ScannerView: View {
                 .ignoresSafeArea()
             
             NavigationView {
-                VStack {
-//                    NavigationLink(destination: RegisterView(showReg: self.$showReg), isActive: $showReg) { EmptyView() }
-                    
+                VStack { 
                     NavigationLink(destination: RegisterView(showReg: $model.showRegister), isActive: $model.showRegister) { EmptyView() }
                     
                     NavigationLink(destination: ItemOptionsView(showOptions: $model.showItemOptions), isActive: $model.showItemOptions) { EmptyView() }
-                    
-//                    NavigationLink(destination: )
-                
                 
                     Spacer()
                     // Scanner parameters
                     CBScanner(
-                        supportBarcode: .constant([.code128, .code39, .upce, .ean13]),
+                        supportBarcode: .constant([.code128, .code39, .upce, .ean13, .qr]),
                         torchLightIsOn: $torchIsOn,
                         scanInterval: .constant(5.0),
                         cameraPosition: $cameraPosition,
@@ -105,24 +101,14 @@ struct ScannerView: View {
                         print("BarCodeType =",$0.type.rawValue, "Value =",$0.value)
                         barcodeValue = $0.value
                         
-                        // try to fetch the item using the barcode
+                        //model.getSupp()
+                        // try to fetch the item using the barcode, this function determins which View to open next: RegisterView or ItemOptionsView
                         model.fetchItem(barcode: String(barcodeValue))
                         
                         // turn off flashlight after scanning, before moving to a new view
                         if (self.torchIsOn == true) {
                             self.torchIsOn.toggle()
                         }
-                        
-                        // if barcode is not in database
-//                        if model.wasFound == false {
-//                            showReg = true
-//                        }
-//                        else {
-//                            // edit to show view with other options
-//                            showOptions = true
-//                        }
-                        
-                        
                     }
                     onDraw: {
                         print("Preview View Size = \($0.cameraPreviewView.bounds)")

@@ -24,12 +24,11 @@ struct RegisterView: View {
     
     @State var editDisable = true
     
-    @State private var selectedSupplier = 1
-    var suppliers = ["ABB", "Schneider", "Kahane"]
+    @State private var selectedSupplier = "-1"
     
     var body: some View {
         VStack {
-//            NavigationView {
+            NavigationView {
                 Form {
                     HStack {
                         Text("פריט אינו קיים במלאי")
@@ -40,62 +39,51 @@ struct RegisterView: View {
                     Section(header: Text("הקלד פרטים")) {
                         HStack {
                             Text("חברה")
-                            Spacer()
                             TextField("חברה", text: $brand)
-                                .fixedSize()
+                            // this modifier push the placeholder text to the left
+                                .multilineTextAlignment(TextAlignment.trailing)
                         }
                         
                         HStack {
                             Text("סוג פריט")
-                            Spacer()
                             TextField("סוג פריט", text: $type)
-                                .fixedSize()
+                                .multilineTextAlignment(TextAlignment.trailing)
                         }
                         
                         HStack {
                             Text("כינוי")
-                            Spacer()
                             TextField("כינוי", text: $nickname)
-                                .fixedSize()
+                                .multilineTextAlignment(TextAlignment.trailing)
                         }
                         
-                        HStack {
-                            Picker(selection: $selectedSupplier, label: Text("ספק")) {
-                                //                                ForEach(0 ..<suppliers.count) { index in
-                                //                                    Text(self.suppliers[index]).tag(index)
-                                //                                }
-                                Text("ABB").tag(0)
-                                Text("Schneider").tag(1)
-                                Text("Kahane").tag(2)
+                        Picker(selection: $selectedSupplier, label: Text("ספק")) {
+                            ForEach(model.suppliersList) { supplier in
+                                Text(supplier.name)
                             }
                         }
                         
                         HStack {
                             Text("ספק")
-                            Spacer()
                             TextField("ספק", text: $supplier)
-                                .fixedSize()
+                                .multilineTextAlignment(TextAlignment.trailing)
                         }
                         
                         HStack {
                             // !! should create a dropdown menu
                             Text("כמות במלאי")
-                            Spacer()
                             TextField("כמות במלאי", text: $stock)
                                 .keyboardType(.decimalPad)
-                                .fixedSize()
+                                .multilineTextAlignment(TextAlignment.trailing)
                         }
                         
                         HStack {
-                            // !! should create a dropdown menu
                             Text("כמות מומלצת")
-                            Spacer()
                             TextField("כמות מומלצת", text: $recQuantity)
                                 .keyboardType(.decimalPad)
-                                .fixedSize()
+                                .multilineTextAlignment(TextAlignment.trailing)
                         }
                     }
-                    
+
                     // section
                     // button section
                     Section {
@@ -113,7 +101,7 @@ struct RegisterView: View {
                             recQuantity = ""
                             
                             // close down window - return to Scanner View
-                            showReg.toggle()
+                            showReg = false
                             
                             
                         }, label: {
@@ -131,13 +119,13 @@ struct RegisterView: View {
                 }
                 .navigationBarTitle("הוספת פריט למלאי")
                 // hide the keyboard if user clicks outside the form
-                .onTapGesture {
-                    hideKeyboard()
-                }
+//                .onTapGesture {
+//                    hideKeyboard()
+//                }
                 .environment(\.layoutDirection, .rightToLeft)
             }
         }
-//    }
+    }
 }
 
 struct RegisterView_Previews: PreviewProvider {
@@ -145,7 +133,7 @@ struct RegisterView_Previews: PreviewProvider {
         Group {
             RegisterView(showReg: .constant(true))
                 .preferredColorScheme(.light)
-                .environment(\.layoutDirection, .rightToLeft)
+//                .environment(\.layoutDirection, .rightToLeft)
         }
     }
 }
