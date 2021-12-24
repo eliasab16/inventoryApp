@@ -66,15 +66,20 @@ struct ItemOptionsView: View {
                         }
                     }
                     
-                    HStack {
-                        Text("ספק")
-                        TextField(String(model.supplier), text: $supplier)
-                            .foregroundColor(Color.gray)
-                            .disabled(editDisabled)
-                            .multilineTextAlignment(TextAlignment.trailing)
-                        
-                        if !editDisabled {
-                            Image(systemName: "arrow.right")
+                    // dropdown meny for suppliers
+                    if editDisabled {
+                        HStack {
+                            Text("ספק")
+                            Spacer()
+                            Text(String(model.supplier))
+                                .foregroundColor(Color(UIColor.systemGray4))
+                        }
+                    }
+                    else {
+                        Picker(selection: $supplier, label: Text("ספק")) {
+                            ForEach(model.suppliersList) { supplier in
+                                Text(supplier.name)
+                            }
                         }
                     }
                     
@@ -105,6 +110,8 @@ struct ItemOptionsView: View {
                     HStack {
                         if editDisabled {
                             Button(action: {
+                                // updating supplier for the picker
+                                supplier = model.supplier
                                 editDisabled = false
                             }) {
                                 Image(systemName: "pencil")
@@ -146,10 +153,8 @@ struct ItemOptionsView: View {
                     // Button to add into inventory
                     Button(action: {
                         model.updateQuantity(id: model.barcodeValue, quantity: Int(quantity) ?? 0)
-                        // reset value
                         quantity = ""
                         // return to previous view
-                        //showOptions.toggle()
                     }) {
                         HStack {
                             Image(systemName: "tray.and.arrow.down.fill")
@@ -157,7 +162,6 @@ struct ItemOptionsView: View {
                                 .frame(width: 22.0, height: 22.0)
                             Text("הוסיף למלאי")
                         }
-                        //                            .foregroundColor(Color(UIColor.systemPurple))
                     }
                     .disabled(quantity.isEmpty)
                     .buttonStyle(PlainButtonStyle())
@@ -166,10 +170,8 @@ struct ItemOptionsView: View {
                     
                     // Button to check out from inventory
                     Button(action: {
-                        //                            self.showingOutInv.toggle()
                         model.updateQuantity(id: model.barcodeValue, quantity: Int("-" + quantity) ?? 0)
                         // return to previous view
-                        //showOptions.toggle()
                     }) {
                         HStack {
                             Image(systemName: "tray.and.arrow.up.fill")
@@ -177,7 +179,6 @@ struct ItemOptionsView: View {
                                 .frame(width: 22.0, height: 22.0)
                             Text("הוציא מהמלאי")
                         }
-                        //                            .foregroundColor(Color(UIColor.systemBlue))
                     }
                     .disabled(quantity.isEmpty)
                     .buttonStyle(PlainButtonStyle())
@@ -205,9 +206,9 @@ struct ItemOptionsView: View {
                 }
             }
             // hide the keyboard if user clicks outside the form
-            .onTapGesture {
-                hideKeyboard()
-            }
+//            .onTapGesture {
+//                hideKeyboard()
+//            }
             .ignoresSafeArea()
             .navigationBarTitle("פרטים")
             .alert(isPresented: $showingDeleteAlert) {

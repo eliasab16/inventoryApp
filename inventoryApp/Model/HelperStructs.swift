@@ -18,7 +18,7 @@ struct Inv: Identifiable {
     var recQuantity: Int
 }
 
-struct Sup: Identifiable {
+struct Iden: Identifiable {
     var id: String
     
     var name: String

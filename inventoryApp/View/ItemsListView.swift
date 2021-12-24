@@ -25,15 +25,22 @@ struct ItemsListView: View {
                         Section(header: Text("בחר פריט")) {
                             List(model.list) { item in
                                 HStack {
-                                    Text(item.nickname)
-                                    Spacer()
-                                    Button {
-                                        model.fetchItem(barcode: item.id)
-                                    } label: {
-                                        Image(systemName: "pencil")
+                                    HStack {
+                                        Text(item.nickname)
                                     }
-                                    .buttonStyle(PlainButtonStyle())
-                                    .foregroundColor(Color(UIColor.systemBlue))
+                                    Spacer()
+                                    HStack {
+                                        Text("במלאי: " + String(item.stock))
+                                            .foregroundColor(Color.gray)
+                                        Button {
+                                            model.getSupp()
+                                            model.fetchItem(barcode: item.id)
+                                        } label: {
+                                            Image(systemName: "pencil")
+                                        }
+                                        .buttonStyle(PlainButtonStyle())
+                                        .foregroundColor(Color(UIColor.systemBlue))
+                                    }
                                 }
                             }
                         }

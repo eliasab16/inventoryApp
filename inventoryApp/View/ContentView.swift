@@ -154,6 +154,7 @@ struct AccessView: View {
                                 .environment(\.layoutDirection, .rightToLeft)
                         }
                     }
+                    
                     // settings
                     Button(action: {
                         model.getSupp()

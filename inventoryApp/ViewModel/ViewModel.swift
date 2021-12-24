@@ -11,7 +11,9 @@ import FirebaseAuth
 
 class ViewModel: ObservableObject {
     @Published var list = [Inv]()
-    @Published var suppliersList = [Sup]()
+    @Published var suppliersList = [Iden]()
+    @Published var customersList = [Iden]()
+    @Published var brandList = [Iden]()
     
     // save the fetched item in the struct instance below
     //@Published var foundItem = Inv(id: "", brand: "", type: "", stock: 0, nickname: "")
@@ -43,7 +45,6 @@ class ViewModel: ObservableObject {
     
     
     // fetch all data function
-    
     func getData() {
         self.showLoadingItemOptions = true
         // Get a reference to the database
@@ -213,7 +214,6 @@ class ViewModel: ObservableObject {
                 
                 // Update te UI from the main threade
                 DispatchQueue.main.async {
-                    
                     // This will iterate over the list, and for each item, it will compare its id, then delete it if it's a match
                     self.list.removeAll { todo in
                         // Check for the todo to remove
@@ -225,7 +225,8 @@ class ViewModel: ObservableObject {
     }
     
     
-    // suppliers functions
+    // SUPPLIERS FUNCTIONS //
+    
     // get suppliers
     func getSupp() {
         // Get a reference to the database
@@ -241,7 +242,7 @@ class ViewModel: ObservableObject {
                         // Get all the documents and create Sup structs
                         self.suppliersList = suppliersList.documents.map { doc in
                             // return an Inv struct. The attributes of the documents are accessed as key,items in a dictionary
-                            return Sup(id: doc.documentID,
+                            return Iden(id: doc.documentID,
                                        name: doc["name"] as? String ?? "")
                         }
                     }
@@ -253,6 +254,7 @@ class ViewModel: ObservableObject {
         }
     }
     
+    
     // add supplier
     func addSupp(name: String) {
         // Get a reference to the database
@@ -262,5 +264,58 @@ class ViewModel: ObservableObject {
         
         self.getSupp()
     }
+    
+    
+    // update data that meets a condition
+    func updateSupp(field: String, oldValue: String, newValue: String) {
+        let db = Firestore.firestore()
+        db.collection("Inventory").whereField("supplier", isEqualTo: oldValue)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+//                        db.collection("Inventory").document(document.documentID).updateData(["supplier": newValue])
+                        
+                        let ref = document.reference
+
+                        ref.updateData([field: newValue])
+                    }
+                }
+                self.getSupp()
+            }
+    }
+    
+    
+    // delete supplier
+    func deleteSupp(id: String) {
+        let db = Firestore.firestore()
+        db.collection("Suppliers").document(id).delete { error in
+            if error == nil {
+                DispatchQueue.main.async {
+                    self.list.removeAll { todo in
+                        return todo.id == id
+                    }
+                }
+            }
+        }
+        
+        self.getSupp()
+    }
+    
+    
+    // update supplier
+//    func updateSupp(id: String, new_name: String) {
+//        // Get a reference to the database
+//        let db = Firestore.firestore()
+//
+//        // update given data, if none given, just
+//        db.collection("Suppliers").document(id).updateData(["name": id])
+//
+//        // call get the data to get the updated list and properties
+//        self.fetchItem(barcode: id)
+//        self.getData()
+//    }
+    
 }
 

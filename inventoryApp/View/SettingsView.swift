@@ -19,15 +19,6 @@ struct SettingsView: View {
                 //            NavigationLink(destination: CustomersView(), isActive: $showingCustomers) { EmptyView() }
                 
                 Form {
-                    //                Section {
-                    //                    Button {
-                    //                        $showingCustomer = true
-                    //                    } label: {
-                    //                        Text("לקוחות")
-                    //                        Image(systemName: "lessthan")
-                    //                    }
-                    //                }
-                    
                     Section {
                         Button {
                             showingSuppliers = true
