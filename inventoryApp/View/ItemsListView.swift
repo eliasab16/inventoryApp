@@ -25,6 +25,8 @@ struct ItemsListView: View {
                         Section(header: Text("בחר פריט")) {
                             List(model.list) { item in
                                 HStack {
+                                    Text(item.nickname)
+                                    Spacer()
                                     Button {
                                         model.fetchItem(barcode: item.id)
                                     } label: {
@@ -32,15 +34,13 @@ struct ItemsListView: View {
                                     }
                                     .buttonStyle(PlainButtonStyle())
                                     .foregroundColor(Color(UIColor.systemBlue))
-                                    Spacer()
-                                    Text(item.nickname)
                                 }
                             }
                         }
                     }
                 }
             }
-            .navigationBarTitle("פריטים במלאי")
+            .navigationTitle("פריטים במלאי")
         }
     }
 }

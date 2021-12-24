@@ -94,14 +94,13 @@ struct ScannerView: View {
                     CBScanner(
                         supportBarcode: .constant([.code128, .code39, .upce, .ean13, .qr]),
                         torchLightIsOn: $torchIsOn,
-                        scanInterval: .constant(5.0),
+                        scanInterval: .constant(10.0),
                         cameraPosition: $cameraPosition,
                         mockBarCode: .constant(BarcodeData(value:"My Test Data", type: .qr))
                     ){
                         print("BarCodeType =",$0.type.rawValue, "Value =",$0.value)
                         barcodeValue = $0.value
                         
-                        //model.getSupp()
                         // try to fetch the item using the barcode, this function determins which View to open next: RegisterView or ItemOptionsView
                         model.fetchItem(barcode: String(barcodeValue))
                         
@@ -129,6 +128,7 @@ struct ScannerView: View {
                     
                     Spacer()
                     
+                    // other options
                     HStack {
                         // flip camera button
                         Button(action: {

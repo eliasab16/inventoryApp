@@ -24,11 +24,9 @@ struct RegisterView: View {
     
     @State var editDisable = true
     
-    @State private var selectedSupplier = "-1"
-    
     var body: some View {
         VStack {
-            NavigationView {
+//            NavigationView {
                 Form {
                     HStack {
                         Text("פריט אינו קיים במלאי")
@@ -56,20 +54,14 @@ struct RegisterView: View {
                                 .multilineTextAlignment(TextAlignment.trailing)
                         }
                         
-                        Picker(selection: $selectedSupplier, label: Text("ספק")) {
+                        // dropdown meny for suppliers
+                        Picker(selection: $supplier, label: Text("ספק")) {
                             ForEach(model.suppliersList) { supplier in
                                 Text(supplier.name)
                             }
                         }
                         
                         HStack {
-                            Text("ספק")
-                            TextField("ספק", text: $supplier)
-                                .multilineTextAlignment(TextAlignment.trailing)
-                        }
-                        
-                        HStack {
-                            // !! should create a dropdown menu
                             Text("כמות במלאי")
                             TextField("כמות במלאי", text: $stock)
                                 .keyboardType(.decimalPad)
@@ -85,7 +77,7 @@ struct RegisterView: View {
                     }
 
                     // section
-                    // button section
+                    // button 00
                     Section {
                         Button(action: {
                             
@@ -117,7 +109,7 @@ struct RegisterView: View {
                             .disabled(type.isEmpty || brand.isEmpty || stock.isEmpty)
                     }
                 }
-                .navigationBarTitle("הוספת פריט למלאי")
+                .navigationTitle("הוספת פריט למלאי")
                 // hide the keyboard if user clicks outside the form
 //                .onTapGesture {
 //                    hideKeyboard()
@@ -125,7 +117,7 @@ struct RegisterView: View {
                 .environment(\.layoutDirection, .rightToLeft)
             }
         }
-    }
+//    }
 }
 
 struct RegisterView_Previews: PreviewProvider {

@@ -99,6 +99,7 @@ struct AccessView: View {
     
     @State var showingScanner = false
     @State var showingList = false
+    @State var showingSettings = false
     
     var body: some View {
         ZStack {
@@ -114,7 +115,7 @@ struct AccessView: View {
                 Spacer()
                 
                 // open scanner button
-                VStack (alignment: .trailing){
+                VStack (alignment: .leading){
                     Spacer ()
                     Spacer()
                     Spacer()
@@ -124,39 +125,59 @@ struct AccessView: View {
                         model.getSupp()
                         self.showingScanner.toggle()
                     }) {
-                        Text("התחל סריקה")
                         Image(systemName: "barcode.viewfinder")
                             .resizable()
                             .frame(width: 45.0, height: 45.0)
-                        
+                        Text("התחל סריקה")
                     }.sheet(isPresented: $showingScanner) {
                             ScannerView()
                                 .environmentObject(model)
+                                .environment(\.layoutDirection, .rightToLeft)
                     }
+                    
                     // items list button
                     Button(action: {
                         model.getData()
                         self.showingList.toggle()
                     }) {
-                        Text("מלאי")
                         Image(systemName: "list.bullet.rectangle")
                             .resizable()
                             .frame(width: 45.0, height: 45.0)
+                        Text("מלאי")
                     }.sheet(isPresented: $showingList) {
-                        ItemsListView()
-                            .environmentObject(model)
+                        if model.showLoadingItemOptions {
+                            LoadingView()
+                        }
+                        else {
+                            ItemsListView()
+                                .environmentObject(model)
+                                .environment(\.layoutDirection, .rightToLeft)
+                        }
                     }
+                    // settings
+                    Button(action: {
+                        model.getSupp()
+                        self.showingSettings.toggle()
+                    }) {
+                        Image(systemName: "gearshape")
+                            .resizable()
+                            .frame(width: 45.0, height: 45.0)
+                        Text("הגדרות")
+                    }.sheet(isPresented: $showingSettings) {
+                        SettingsView()
+                            .environmentObject(model)
+                            .environment(\.layoutDirection, .rightToLeft)
+                    }
+
                     
                     // sign out button
                     Button(action: {
                         model.signOut()
                     }) {
-                        Text("התנתק")
                         Image(systemName: "arrow.backward.square")
                             .resizable()
                             .frame(width: 45.0, height: 45.0)
-                        
-                        
+                        Text("התנתק")
                     }
                     
                     Spacer()

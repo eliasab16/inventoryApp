@@ -24,7 +24,7 @@ struct inventoryAppApp: App {
         WindowGroup {
             ContentView().environmentObject(model)
                 .environment(\.colorScheme, .light)
-            
+                .environment(\.layoutDirection, .rightToLeft)
         }
     }
 }

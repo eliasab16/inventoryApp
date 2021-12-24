@@ -10,7 +10,6 @@ import Firebase
 import FirebaseAuth
 
 class ViewModel: ObservableObject {
-    
     @Published var list = [Inv]()
     @Published var suppliersList = [Sup]()
     
@@ -21,6 +20,7 @@ class ViewModel: ObservableObject {
     // Controlling different views
     @Published var showRegister = false
     @Published var showItemOptions = false
+    @Published var showLoadingItemOptions = false
     
     // database connection properties
     @Published var barcodeValue = ""
@@ -45,6 +45,7 @@ class ViewModel: ObservableObject {
     // fetch all data function
     
     func getData() {
+        self.showLoadingItemOptions = true
         // Get a reference to the database
         let db = Firestore.firestore()
         // Read the docu,emt at a specific path
@@ -65,6 +66,8 @@ class ViewModel: ObservableObject {
                                        supplier: doc["supplier"] as? String ?? "",
                                        recQuantity: doc["recQuantity"] as? Int ?? 0)
                         }
+                        
+                        self.showLoadingItemOptions = false
                     }
                 }
             }
@@ -255,7 +258,7 @@ class ViewModel: ObservableObject {
         // Get a reference to the database
         let db = Firestore.firestore()
         // Add the document, let firestore pick an id by using addDocument() instead of document(id).setData
-        db.collection("Suppliers").addDocument(data: ["name" : name])
+        db.collection("Suppliers").document(name).setData(["name": name])
         
         self.getSupp()
     }

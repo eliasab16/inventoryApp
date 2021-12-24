@@ -29,66 +29,75 @@ struct ItemOptionsView: View {
             Form {
                 // section
                 // list all item details
-                Section(header: Text("פרטים"), footer: Text("* זו לא הכמות הנוכחית במאלי")) {
+                Section(header: Text("פרטים")) {
                     HStack {
-                        if !editDisabled {
-                            Image(systemName: "arrow.right")
-                        }
+                        Text("חברה")
                         TextField(String(model.brand), text: $brand)
                             .foregroundColor(Color.gray)
                             .disabled(editDisabled)
-                        Spacer()
-                        Text("חברה")
-                    }
-                    
-                    HStack {
+                            .multilineTextAlignment(TextAlignment.trailing)
+                        
                         if !editDisabled {
                             Image(systemName: "arrow.right")
                         }
+                    }
+                    
+                    HStack {
+                        Text("סוג")
                         TextField(String(model.type), text: $type)
                             .foregroundColor(Color.gray)
                             .disabled(editDisabled)
-                        Spacer()
-                        Text("סוג")
-                    }
-                    
-                    HStack {
+                            .multilineTextAlignment(TextAlignment.trailing)
+                        
                         if !editDisabled {
                             Image(systemName: "arrow.right")
                         }
+                    }
+                    
+                    HStack {
+                        Text("כינוי")
                         TextField(String(model.nickname), text: $nickname)
                             .foregroundColor(Color.gray)
                             .disabled(editDisabled)
-                        Spacer()
-                        Text("כינוי")
-                    }
-                    
-                    HStack {
+                            .multilineTextAlignment(TextAlignment.trailing)
+
                         if !editDisabled {
                             Image(systemName: "arrow.right")
                         }
-                        TextField(String(model.supplier), text: $supplier)
-                            .foregroundColor(Color.gray)
-                            .disabled(editDisabled)
-                        Spacer()
-                        Text("ספק")
                     }
                     
                     HStack {
-                        if editDisabled {
-                            Text(String(model.stock))
-                                .foregroundColor(Color.gray)
-                            Text("/ " + String(model.recQuantity))
-                            Spacer()
-                            Text("כמות במלאי")
-                        }
-                        // edit recommended quantity
-                        else {
+                        Text("ספק")
+                        TextField(String(model.supplier), text: $supplier)
+                            .foregroundColor(Color.gray)
+                            .disabled(editDisabled)
+                            .multilineTextAlignment(TextAlignment.trailing)
+                        
+                        if !editDisabled {
                             Image(systemName: "arrow.right")
-                            TextField(String(model.recQuantity), text: $recQuantity)
-                                .foregroundColor(Color.gray)
-                            Spacer()
-                            Text("כמות מומלצת במלאי*")
+                        }
+                    }
+                    
+                    HStack {
+                        Text("כמות במלאי")
+                        TextField(String(model.stock), text: $quantity)
+                            .foregroundColor(Color.gray)
+                            .disabled(editDisabled)
+                            .multilineTextAlignment(TextAlignment.trailing)
+                        
+                        if !editDisabled {
+                            Image(systemName: "arrow.right")
+                        }
+                    }
+                    
+                    HStack {
+                        Text("כמות מומלצת")
+                        TextField(String(model.recQuantity), text: $recQuantity)
+                            .foregroundColor(Color.gray)
+                            .multilineTextAlignment(TextAlignment.trailing)
+                        
+                        if !editDisabled {
+                            Image(systemName: "arrow.right")
                         }
                     }
                     
@@ -96,12 +105,10 @@ struct ItemOptionsView: View {
                     HStack {
                         if editDisabled {
                             Button(action: {
-//                                showEditBtn = false
                                 editDisabled = false
                             }) {
-                                Spacer()
-                                Text("ערוך פרטים")
                                 Image(systemName: "pencil")
+                                Text("ערוך פרטים")
                             }
                             .buttonStyle(PlainButtonStyle())
                             .foregroundColor(Color(UIColor.systemBlue))
@@ -117,15 +124,13 @@ struct ItemOptionsView: View {
                                                       recQuantity: (recQuantity.isEmpty ? model.recQuantity : Int(recQuantity)) ?? model.recQuantity)
                                 editDisabled = true
                             }) {
-                                Spacer()
-                                Text("סיום")
                                 Image(systemName: "checkmark")
+                                Text("סיום")
                             }
                             .buttonStyle(PlainButtonStyle())
                             .foregroundColor(Color(UIColor.systemBlue))
                         }
                     }
-                    
                 }
                 
                 // section
@@ -144,14 +149,13 @@ struct ItemOptionsView: View {
                         // reset value
                         quantity = ""
                         // return to previous view
-                        showOptions.toggle()
+                        //showOptions.toggle()
                     }) {
                         HStack {
-                            Spacer()
-                            Text("הוסיף למלאי")
                             Image(systemName: "tray.and.arrow.down.fill")
                                 .resizable()
                                 .frame(width: 22.0, height: 22.0)
+                            Text("הוסיף למלאי")
                         }
                         //                            .foregroundColor(Color(UIColor.systemPurple))
                     }
@@ -165,14 +169,13 @@ struct ItemOptionsView: View {
                         //                            self.showingOutInv.toggle()
                         model.updateQuantity(id: model.barcodeValue, quantity: Int("-" + quantity) ?? 0)
                         // return to previous view
-                        showOptions.toggle()
+                        //showOptions.toggle()
                     }) {
                         HStack {
-                            Spacer()
-                            Text("הוציא מהמלאי")
                             Image(systemName: "tray.and.arrow.up.fill")
                                 .resizable()
                                 .frame(width: 22.0, height: 22.0)
+                            Text("הוציא מהמלאי")
                         }
                         //                            .foregroundColor(Color(UIColor.systemBlue))
                     }
@@ -222,7 +225,7 @@ struct ItemOptionsView: View {
                     }
             
         }
-        Spacer()
+        .environment(\.layoutDirection, .rightToLeft)
     }
 }
 
