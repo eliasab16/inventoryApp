@@ -75,6 +75,8 @@ struct ScannerView: View {
     @State var torchIsOn = false
     @State var showingAlert = false
     @State var cameraPosition = AVCaptureDevice.Position.back
+    
+    @State var enableButton = false
 
     
     var body: some View {
@@ -89,25 +91,32 @@ struct ScannerView: View {
                     
                     NavigationLink(destination: ItemOptionsView(showOptions: $model.showItemOptions).environmentObject(model), isActive: $model.showItemOptions) { EmptyView() }
                 
+                    
+//                    Picker(selection: $brand, label: Text("חברה")) {
+//                        ForEach(model.brandsList) { brand in
+//                            Text(brand.name)
+//                        }
+//                    }
+                        
                     Spacer()
                     // Scanner parameters
                     CBScanner(
                         supportBarcode: .constant([.code128, .code39, .upce, .ean13, .qr]),
                         torchLightIsOn: $torchIsOn,
-                        scanInterval: .constant(10.0),
+                        scanInterval: .constant(5.0),
                         cameraPosition: $cameraPosition,
                         mockBarCode: .constant(BarcodeData(value:"My Test Data", type: .qr))
                     ){
-                        print("BarCodeType =",$0.type.rawValue, "Value =",$0.value)
                         barcodeValue = $0.value
                         
-                        // try to fetch the item using the barcode, this function determins which View to open next: RegisterView or ItemOptionsView
-                        model.fetchItem(barcode: String(barcodeValue))
-                        
-                        // turn off flashlight after scanning, before moving to a new view
-                        if (self.torchIsOn == true) {
-                            self.torchIsOn.toggle()
+                        enableButton = true
+                        // stop alert after 1 second
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                            self.enableButton = false
                         }
+                        
+                        
+                        //                            print("BarCodeType =",$0.type.rawValue, "Value =",$0.value)
                     }
                     onDraw: {
                         print("Preview View Size = \($0.cameraPreviewView.bounds)")
@@ -125,7 +134,32 @@ struct ScannerView: View {
                                     .foregroundColor(.blue))
                     
                     Spacer()
-                    
+                    // scan button
+                    VStack {
+                        Button {
+                            if enableButton {
+                                // play sound
+                                AudioServicesPlaySystemSound(1256)
+                                // try to fetch the item using the barcode, this function determins which View to open next: RegisterView or ItemOptionsView
+                                model.fetchItem(barcode: String(barcodeValue))
+                                
+                                // turn off flashlight after scanning, before moving to a new view
+                                if (self.torchIsOn == true) {
+                                    self.torchIsOn.toggle()
+                                }
+                                enableButton = false
+                            }
+                        } label: {
+                            Text("סרוק")
+                                .font(.system(size: 18, weight: .semibold))
+                                .foregroundColor(.white)
+                                .frame(width: 200, height: 50)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                        .foregroundColor(.blue))
+                        }
+                        
+                    }
                     Spacer()
                     
                     // other options
@@ -158,9 +192,6 @@ struct ScannerView: View {
                         .frame(width: 40.0, height: 40)
                         .padding(.trailing, 25.0)
                     }
-                    
-                    
-
                 }.alert(isPresented: $nothing) {
                     Alert(title: Text("Found Barcode"), message: Text("\(barcodeValue)"), dismissButton: .default(Text("Close")))
                 }

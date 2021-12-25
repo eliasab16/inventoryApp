@@ -123,6 +123,8 @@ struct AccessView: View {
                     // scanner button
                     Button(action: {
                         model.getIden(collection: "Suppliers")
+                        model.getIden(collection: "Customers")
+                        model.getIden(collection: "Brands")
                         self.showingScanner.toggle()
                     }) {
                         Image(systemName: "barcode.viewfinder")
