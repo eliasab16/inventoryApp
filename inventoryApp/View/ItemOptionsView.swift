@@ -30,15 +30,21 @@ struct ItemOptionsView: View {
                 // section
                 // list all item details
                 Section(header: Text("פרטים")) {
-                    HStack {
-                        Text("חברה")
-                        TextField(String(model.brand), text: $brand)
-                            .foregroundColor(Color.gray)
-                            .disabled(editDisabled)
-                            .multilineTextAlignment(TextAlignment.trailing)
-                        
-                        if !editDisabled {
-                            Image(systemName: "arrow.right")
+                    // dropdown meny for suppliers
+                    if editDisabled {
+                        HStack {
+                            Text("חברה")
+                            Spacer()
+                            Text(String(model.brand))
+                                .foregroundColor(Color(UIColor.systemGray4))
+                        }
+                    }
+                    else {
+                        // important: poopulate the brand variable wth model.brand to show on the picker
+                        Picker(selection: $brand, label: Text("חברה")) {
+                            ForEach(model.brandsList) { brand in
+                                Text(brand.name)
+                            }
                         }
                     }
                     
@@ -110,8 +116,9 @@ struct ItemOptionsView: View {
                     HStack {
                         if editDisabled {
                             Button(action: {
-                                // updating supplier for the picker
+                                // updating supplier and brand for the picker
                                 supplier = model.supplier
+                                brand = model.brand
                                 editDisabled = false
                             }) {
                                 Image(systemName: "pencil")

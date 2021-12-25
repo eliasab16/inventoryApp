@@ -13,7 +13,7 @@ class ViewModel: ObservableObject {
     @Published var list = [Inv]()
     @Published var suppliersList = [Iden]()
     @Published var customersList = [Iden]()
-    @Published var brandList = [Iden]()
+    @Published var brandsList = [Iden]()
     
     // save the fetched item in the struct instance below
     //@Published var foundItem = Inv(id: "", brand: "", type: "", stock: 0, nickname: "")
@@ -228,22 +228,36 @@ class ViewModel: ObservableObject {
     // SUPPLIERS FUNCTIONS //
     
     // get suppliers
-    func getSupp() {
+    func getIden(collection: String) {
         // Get a reference to the database
         let db = Firestore.firestore()
         // Read the docu,emt at a specific path
-        db.collection("Suppliers").getDocuments { list, error in
+        db.collection(collection).getDocuments { list, error in
             // check for errors
             if error == nil {
                 // store the retrieved data in `list` and assign it to suppliersList
-                if let suppliersList = list {
+                if let identityList = list {
                     
                     DispatchQueue.main.async {
-                        // Get all the documents and create Sup structs
-                        self.suppliersList = suppliersList.documents.map { doc in
-                            // return an Inv struct. The attributes of the documents are accessed as key,items in a dictionary
-                            return Iden(id: doc.documentID,
-                                       name: doc["name"] as? String ?? "")
+                        if collection == "Suppliers" {
+                            // Get all the documents and create Iden structs
+                            self.suppliersList = identityList.documents.map { doc in
+                                // return an Inv struct. The attributes of the documents are accessed as key,items in a dictionary
+                                return Iden(id: doc.documentID,
+                                           name: doc["name"] as? String ?? "")
+                            }
+                        }
+                        else if collection == "Customers" {
+                            self.customersList = identityList.documents.map { doc in
+                                return Iden(id: doc.documentID,
+                                           name: doc["name"] as? String ?? "")
+                            }
+                        }
+                        else if collection == "Brands" {
+                            self.brandsList = identityList.documents.map { doc in
+                                return Iden(id: doc.documentID,
+                                           name: doc["name"] as? String ?? "")
+                            }
                         }
                     }
                 }
@@ -255,21 +269,21 @@ class ViewModel: ObservableObject {
     }
     
     
-    // add supplier
-    func addSupp(name: String) {
+    // add supplier, customer, or brand
+    func addIden(collection: String, name: String) {
         // Get a reference to the database
         let db = Firestore.firestore()
         // Add the document, let firestore pick an id by using addDocument() instead of document(id).setData
-        db.collection("Suppliers").document(name).setData(["name": name])
+        db.collection(collection).document(name).setData(["name": name])
         
-        self.getSupp()
+        self.getIden(collection: collection)
     }
     
     
-    // update data that meets a condition
-    func updateSupp(field: String, oldValue: String, newValue: String) {
+    // update data in Inventory that meets a condition
+    func updateIden(collection: String, field: String, oldValue: String, newValue: String) {
         let db = Firestore.firestore()
-        db.collection("Inventory").whereField("supplier", isEqualTo: oldValue)
+        db.collection("Inventory").whereField(field, isEqualTo: oldValue)
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
@@ -282,15 +296,15 @@ class ViewModel: ObservableObject {
                         ref.updateData([field: newValue])
                     }
                 }
-                self.getSupp()
+                self.getIden(collection: collection)
             }
     }
     
     
     // delete supplier
-    func deleteSupp(id: String) {
+    func deleteIden(collection: String, id: String) {
         let db = Firestore.firestore()
-        db.collection("Suppliers").document(id).delete { error in
+        db.collection(collection).document(id).delete { error in
             if error == nil {
                 DispatchQueue.main.async {
                     self.list.removeAll { todo in
@@ -300,7 +314,7 @@ class ViewModel: ObservableObject {
             }
         }
         
-        self.getSupp()
+        self.getIden(collection: collection)
     }
     
     

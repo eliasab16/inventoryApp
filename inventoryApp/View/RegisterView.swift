@@ -15,8 +15,8 @@ struct RegisterView: View {
     @Binding var showReg: Bool
     
     // to add another field, declare below, add to the form, and add to ViewModel and ItemOptionsView
-    @State var type = ""
     @State var brand = ""
+    @State var type = ""
     @State var stock = ""
     @State var recQuantity = ""
     @State var nickname = ""
@@ -26,98 +26,93 @@ struct RegisterView: View {
     
     var body: some View {
         VStack {
-//            NavigationView {
-                Form {
-                    HStack {
-                        Text("פריט אינו קיים במלאי")
+            Form {
+                HStack {
+                    Text("פריט אינו קיים במלאי")
+                }
+                
+                // section
+                // item details
+                Section(header: Text("הקלד פרטים")) {
+                    // dropdown meny for brands
+                    Picker(selection: $brand, label: Text("חברה")) {
+                        ForEach(model.brandsList) { brand in
+                            Text(brand.name)
+                        }
                     }
                     
-                    // section
-                    // item details
-                    Section(header: Text("הקלד פרטים")) {
-                        HStack {
-                            Text("חברה")
-                            TextField("חברה", text: $brand)
-                            // this modifier push the placeholder text to the left
-                                .multilineTextAlignment(TextAlignment.trailing)
-                        }
-                        
-                        HStack {
-                            Text("סוג פריט")
-                            TextField("סוג פריט", text: $type)
-                                .multilineTextAlignment(TextAlignment.trailing)
-                        }
-                        
-                        HStack {
-                            Text("כינוי")
-                            TextField("כינוי", text: $nickname)
-                                .multilineTextAlignment(TextAlignment.trailing)
-                        }
-                        
-                        // dropdown meny for suppliers
-                        Picker(selection: $supplier, label: Text("ספק")) {
-                            ForEach(model.suppliersList) { supplier in
-                                Text(supplier.name)
-                            }
-                        }
-                        
-                        HStack {
-                            Text("כמות במלאי")
-                            TextField("כמות במלאי", text: $stock)
-                                .keyboardType(.decimalPad)
-                                .multilineTextAlignment(TextAlignment.trailing)
-                        }
-                        
-                        HStack {
-                            Text("כמות מומלצת")
-                            TextField("כמות מומלצת", text: $recQuantity)
-                                .keyboardType(.decimalPad)
-                                .multilineTextAlignment(TextAlignment.trailing)
+                    HStack {
+                        Text("סוג פריט")
+                        TextField("סוג פריט", text: $type)
+                            .multilineTextAlignment(TextAlignment.trailing)
+                    }
+                    
+                    HStack {
+                        Text("כינוי")
+                        TextField("כינוי", text: $nickname)
+                            .multilineTextAlignment(TextAlignment.trailing)
+                    }
+                    
+                    // dropdown meny for suppliers
+                    Picker(selection: $supplier, label: Text("ספק")) {
+                        ForEach(model.suppliersList) { supplier in
+                            Text(supplier.name)
                         }
                     }
-
-                    // section
-                    // button 00
-                    Section {
-                        Button(action: {
-                            
-                            // Call add data
-                            model.addData(id: model.barcodeValue, brand: brand, type: type, stock: Int(stock) ?? 0, nickname: nickname, supplier: supplier, recQuantity: Int(recQuantity) ?? 0)
-                            
-                            // Clear the text fields
-                            brand = ""
-                            type = ""
-                            stock = ""
-                            nickname = ""
-                            supplier = ""
-                            recQuantity = ""
-                            
-                            // close down window - return to Scanner View
-                            showReg = false
-                            
-                            
-                        }, label: {
-                            HStack {
-                                Spacer()
-                                Text("הוסיף")
-                                Spacer()
-                            }
-                        })
-                            .buttonStyle(PlainButtonStyle())
-                            .foregroundColor(Color(UIColor.systemBlue))
-                        // if any of the three entries (except nickname) is empty, disable button
-                            .disabled(type.isEmpty || brand.isEmpty || stock.isEmpty)
+                    
+                    HStack {
+                        Text("כמות במלאי")
+                        TextField("כמות במלאי", text: $stock)
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(TextAlignment.trailing)
+                    }
+                    
+                    HStack {
+                        Text("כמות מומלצת")
+                        TextField("כמות מומלצת", text: $recQuantity)
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(TextAlignment.trailing)
                     }
                 }
-                .navigationTitle("הוספת פריט למלאי")
-                // hide the keyboard if user clicks outside the form
-//                .onTapGesture {
-//                    hideKeyboard()
-//                }
-                .environment(\.layoutDirection, .rightToLeft)
+                
+                // section: button
+                Section {
+                    Button(action: {
+                        
+                        // Call add data
+                        model.addData(id: model.barcodeValue, brand: brand, type: type, stock: Int(stock) ?? 0, nickname: nickname, supplier: supplier, recQuantity: Int(recQuantity) ?? 0)
+                        
+                        // Clear the text fields
+                        brand = ""
+                        type = ""
+                        stock = ""
+                        nickname = ""
+                        supplier = ""
+                        recQuantity = ""
+                        
+                        // close down window - return to Scanner View
+                        showReg = false
+                    }, label: {
+                        HStack {
+                            Spacer()
+                            Text("הוסיף")
+                            Spacer()
+                        }
+                    })
+                        .buttonStyle(PlainButtonStyle())
+                        .foregroundColor(Color(UIColor.systemBlue))
+                    // if any of the three entries (except nickname) is empty, disable button
+                        .disabled(type.isEmpty || brand.isEmpty || stock.isEmpty)
+                }
             }
+            .navigationTitle("הוספת פריט למלאי")
+            // hide the keyboard if user clicks outside the form
+            //                .onTapGesture {
+            //                    hideKeyboard()
+            //                }
+            .environment(\.layoutDirection, .rightToLeft)
         }
-//    }
+    }
 }
 
 struct RegisterView_Previews: PreviewProvider {
@@ -125,7 +120,6 @@ struct RegisterView_Previews: PreviewProvider {
         Group {
             RegisterView(showReg: .constant(true))
                 .preferredColorScheme(.light)
-//                .environment(\.layoutDirection, .rightToLeft)
         }
     }
 }

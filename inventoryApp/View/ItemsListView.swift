@@ -19,7 +19,7 @@ struct ItemsListView: View {
                 }
                 
                 else {
-                    NavigationLink(destination: ItemOptionsView(showOptions: $model.showItemOptions), isActive: $model.showItemOptions) { EmptyView() }
+                    NavigationLink(destination: ItemOptionsView(showOptions: $model.showItemOptions).environmentObject(model), isActive: $model.showItemOptions) { EmptyView() }
                     
                     Form {
                         Section(header: Text("בחר פריט")) {
@@ -33,7 +33,8 @@ struct ItemsListView: View {
                                         Text("במלאי: " + String(item.stock))
                                             .foregroundColor(Color.gray)
                                         Button {
-                                            model.getSupp()
+                                            model.getIden(collection: "Suppliers")
+//                                            model.getIden(collection: "Brands")
                                             model.fetchItem(barcode: item.id)
                                         } label: {
                                             Image(systemName: "pencil")

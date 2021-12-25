@@ -30,7 +30,7 @@ struct SuppliersView: View {
                         TextField("שם ספק", text: $supplier)
                         Button(action: {
                             if supplier.count > 1 {
-                                model.addSupp(name: supplier)
+                                model.addIden(collection: "Suppliers", name: supplier)
                                 showAddedAlert = true
                                 // stop alert after 1 second
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -116,7 +116,7 @@ struct SuppliersView: View {
                                 message: Text("לא ניתן לשחזר אחרי מחיקה"),
                                 primaryButton: .destructive(Text("מחק")) {
                                     // delete
-                                    model.deleteSupp(id: supplierToDelete)
+                                    model.deleteIden(collection: "Suppliers", id: supplierToDelete)
                                     supplierToDelete = ""
                                     showDeletedAlert = true
                                     // stop alert after 1 seconds
@@ -191,10 +191,10 @@ struct SuppliersView: View {
                                 
                                 Button("עדכן") {
                                     // look for all the items with this supplier and change to new name
-                                    model.updateSupp(field: "supplier", oldValue: supplierToEdit, newValue: supplierNew)
+                                    model.updateIden(collection: "Suppliers", field: "supplier", oldValue: supplierToEdit, newValue: supplierNew)
                                     // delete old supplier name and add new one (delete > add because id=name)
-                                    model.deleteSupp(id: supplierToEdit)
-                                    model.addSupp(name: supplierNew)
+                                    model.deleteIden(collection: "Suppliers", id: supplierToEdit)
+                                    model.addIden(collection: "Suppliers", name: supplierNew)
                                     showEditWindow = false
                                     showAddedAlert = true
                                     // stop alert after 1 second

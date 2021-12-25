@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct CustomersView: View {
+struct BrandsView: View {
     @EnvironmentObject var model: ViewModel
     
-    @State var customer = ""
-    @State var customerToDelete = ""
-    @State var customerToEdit = ""
-    @State var customerNew = ""
+    @State var brand = ""
+    @State var brandToDelete = ""
+    @State var brandToEdit = ""
+    @State var brandNew = ""
     
     @State private var isAdding = false
     @State var showAddedAlert = false
@@ -27,17 +27,17 @@ struct CustomersView: View {
                 Form {
                     // text field to add a new supplier to the list
                     if isAdding {
-                        TextField("שם לקוח", text: $customer)
+                        TextField("שם חברה", text: $brand)
                         Button(action: {
-                            if customer.count > 1 {
-                                model.addIden(collection: "Customers", name: customer)
+                            if brand.count > 1 {
+                                model.addIden(collection: "Brands", name: brand)
                                 showAddedAlert = true
                                 // stop alert after 1 second
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                     self.showAddedAlert = false
                                 }
                             }
-                            customer = ""
+                            brand = ""
                         }) {
                             HStack {
                                 Image(systemName: "plus.circle")
@@ -47,11 +47,11 @@ struct CustomersView: View {
                     }
                     
                     // existing suppliers list
-                    Section(header: Text("בחר לקוח")) {
-                        List(model.customersList) { customer in
+                    Section(header: Text("בחר חברה")) {
+                        List(model.brandsList) { brand in
                             HStack {
                                 HStack {
-                                    Text(customer.name)
+                                    Text(brand.name)
                                     Spacer()
                                     Spacer()
                                 }
@@ -60,7 +60,7 @@ struct CustomersView: View {
                                     HStack {
                                         Button(action: {
                                             // edit name
-                                            customerToEdit = customer.id
+                                            brandToEdit = brand.id
                                             showEditWindow = true
                                             // should change the name for all the items by this customer
                                         }) {
@@ -75,7 +75,7 @@ struct CustomersView: View {
                                     HStack {
                                         Button(action: {
                                             // delete
-                                            customerToDelete = customer.id
+                                            brandToDelete = brand.id
                                             showDeleteWarning = true
                                             // what if already used by some items?
                                             
@@ -93,7 +93,7 @@ struct CustomersView: View {
 //                .onTapGesture {
 //                    hideKeyboard()
 //                }
-                .navigationTitle("לקוחות")
+                .navigationTitle("חברות")
                 // edit button in toolbar
                 .toolbar {
                     ToolbarItem() {
@@ -116,8 +116,8 @@ struct CustomersView: View {
                                 message: Text("לא ניתן לשחזר אחרי מחיקה"),
                                 primaryButton: .destructive(Text("מחק")) {
                                     // delete
-                                    model.deleteIden(collection: "Customers", id: customerToDelete)
-                                    customerToDelete = ""
+                                    model.deleteIden(collection: "Brands", id: brandToDelete)
+                                    brandToDelete = ""
                                     showDeletedAlert = true
                                     // stop alert after 1 seconds
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -164,15 +164,15 @@ struct CustomersView: View {
                         VStack{
                             VStack {
                                 Spacer()
-                                Text("עדכון שם לקוח")
+                                Text("עדכון שם חברה")
                                     .bold()
-                                Text(customerToEdit)
+                                Text(brandToEdit)
                                     .fontWeight(.light)
                                 HStack {
                                     Spacer()
                                     Spacer()
                                     Spacer()
-                                    TextField("שם חדש", text: $customerNew)
+                                    TextField("שם חדש", text: $brandNew)
                                         .multilineTextAlignment(.center)
                                         .background(
                                             RoundedRectangle(cornerRadius: 4, style: .continuous)
@@ -190,9 +190,11 @@ struct CustomersView: View {
                                 Spacer()
                                 
                                 Button("עדכן") {
+                                    // look for all the items with this brand and change to new name
+                                    model.updateIden(collection: "Brands", field: "brand", oldValue: brandToEdit, newValue: brandNew)
                                     // delete old customer name and add new one (delete > add because id=name)
-                                    model.deleteIden(collection: "Customers", id: customerToEdit)
-                                    model.addIden(collection: "Customers", name: customerNew)
+                                    model.deleteIden(collection: "Brands", id: brandToEdit)
+                                    model.addIden(collection: "Brands", name: brandNew)
                                     showEditWindow = false
                                     showAddedAlert = true
                                     // stop alert after 1 second
@@ -200,8 +202,8 @@ struct CustomersView: View {
                                         self.showAddedAlert = false
                                     }
                                     //reset values
-                                    customerToEdit = ""
-                                    customerNew = ""
+                                    brandToEdit = ""
+                                    brandNew = ""
                                 }
                                 .padding()
                                 .buttonStyle(PlainButtonStyle())
@@ -229,8 +231,8 @@ struct CustomersView: View {
     }
 }
 
-struct CustomersView_Previews: PreviewProvider {
+struct BrandsView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomersView()
+        BrandsView()
     }
 }

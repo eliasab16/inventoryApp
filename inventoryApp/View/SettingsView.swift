@@ -8,15 +8,20 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @EnvironmentObject var model: ViewModel 
+    
     @State var showingCustomers = false
     @State var showingSuppliers = false
+    @State var showingBrands = false
     
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: SuppliersView(), isActive: $showingSuppliers) { EmptyView() }
+                NavigationLink(destination: SuppliersView().environmentObject(model), isActive: $showingSuppliers) { EmptyView() }
                 
-                //            NavigationLink(destination: CustomersView(), isActive: $showingCustomers) { EmptyView() }
+                NavigationLink(destination: CustomersView().environmentObject(model), isActive: $showingCustomers) { EmptyView() }
+                
+                NavigationLink(destination: BrandsView().environmentObject(model), isActive: $showingBrands) { EmptyView() }
                 
                 Form {
                     Section {
@@ -26,7 +31,27 @@ struct SettingsView: View {
                             HStack {
                                 Text("ספקים")
                                 Spacer()
-                                Image(systemName: "lessthan")
+                                Image(systemName: "chevron.left")
+                            }
+                        }
+                        
+                        Button {
+                            showingCustomers = true
+                        } label: {
+                            HStack {
+                                Text("לקוחות")
+                                Spacer()
+                                Image(systemName: "chevron.left")
+                            }
+                        }
+                        
+                        Button {
+                            showingBrands = true
+                        } label: {
+                            HStack {
+                                Text("חברות")
+                                Spacer()
+                                Image(systemName: "chevron.left")
                             }
                         }
                     }

@@ -122,7 +122,7 @@ struct AccessView: View {
                     
                     // scanner button
                     Button(action: {
-                        model.getSupp()
+                        model.getIden(collection: "Suppliers")
                         self.showingScanner.toggle()
                     }) {
                         Image(systemName: "barcode.viewfinder")
@@ -157,7 +157,9 @@ struct AccessView: View {
                     
                     // settings
                     Button(action: {
-                        model.getSupp()
+                        model.getIden(collection: "Suppliers")
+                        model.getIden(collection: "Customers")
+                        model.getIden(collection: "Brands")
                         self.showingSettings.toggle()
                     }) {
                         Image(systemName: "gearshape")

@@ -25,6 +25,7 @@
 		42AF860F2774818C009B5BC8 /* SuppliersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AF860E2774818C009B5BC8 /* SuppliersView.swift */; };
 		42AF861127757786009B5BC8 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AF861027757786009B5BC8 /* LoadingView.swift */; };
 		42AF86132775BD17009B5BC8 /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AF86122775BD17009B5BC8 /* Divider.swift */; };
+		42AF862F27774845009B5BC8 /* BrandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AF862E27774845009B5BC8 /* BrandsView.swift */; };
 		42DA6157273A4CD800098E1D /* libswiftWebKit.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DA6156273A4CD800098E1D /* libswiftWebKit.tbd */; };
 		42DA615E273C8E4300098E1D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DA6158273C72F300098E1D /* XCTest.framework */; };
 		42DA6162273E2DB400098E1D /* ItemOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DA6161273E2DB400098E1D /* ItemOptionsView.swift */; };
@@ -53,6 +54,7 @@
 		42AF860E2774818C009B5BC8 /* SuppliersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuppliersView.swift; sourceTree = "<group>"; };
 		42AF861027757786009B5BC8 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		42AF86122775BD17009B5BC8 /* Divider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
+		42AF862E27774845009B5BC8 /* BrandsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandsView.swift; sourceTree = "<group>"; };
 		42DA6156273A4CD800098E1D /* libswiftWebKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftWebKit.tbd; path = usr/lib/swift/libswiftWebKit.tbd; sourceTree = SDKROOT; };
 		42DA6158273C72F300098E1D /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		42DA6161273E2DB400098E1D /* ItemOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemOptionsView.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				42AF860C27748178009B5BC8 /* CustomersView.swift */,
 				42AF860E2774818C009B5BC8 /* SuppliersView.swift */,
 				42AF861027757786009B5BC8 /* LoadingView.swift */,
+				42AF862E27774845009B5BC8 /* BrandsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				424015B22738EABC0006024A /* Button.swift in Sources */,
 				42DA6162273E2DB400098E1D /* ItemOptionsView.swift in Sources */,
 				4221549A273791920083D633 /* HelperStructs.swift in Sources */,
+				42AF862F27774845009B5BC8 /* BrandsView.swift in Sources */,
 				42DD81EB27411C0E008B8700 /* SignInView.swift in Sources */,
 				42AF861127757786009B5BC8 /* LoadingView.swift in Sources */,
 				42AF86132775BD17009B5BC8 /* Divider.swift in Sources */,
